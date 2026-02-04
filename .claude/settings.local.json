@@ -1,0 +1,7 @@
+{
+  "outputStyle": "engineer-professional",
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "create-uni"
+  ]
+}

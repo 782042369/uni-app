@@ -1,0 +1,176 @@
+{
+  "timestamp": "2026-02-04T16:52:29+08:00",
+  "project": {
+    "name": "uni-app",
+    "type": "vitesse-uni-app",
+    "platforms": ["android", "harmonyos", "h5"],
+    "packageManager": "pnpm@9.15.4"
+  },
+  "structure": {
+    "root": {
+      "type": "monorepo-root",
+      "language": "typescript",
+      "entryPoints": ["src/main.ts"],
+      "configFiles": [
+        "vite.config.ts",
+        "pages.config.ts",
+        "manifest.config.ts",
+        "unh.config.ts",
+        "uno.config.ts",
+        "tsconfig.json",
+        "eslint.config.js",
+        "package.json"
+      ]
+    },
+    "modules": [
+      {
+        "name": "pages",
+        "path": "src/pages",
+        "type": "vue-pages",
+        "files": ["index.vue", "hi.vue"],
+        "hasTests": false,
+        "description": "页面路由，基于文件自动生成"
+      },
+      {
+        "name": "components",
+        "path": "src/components",
+        "type": "vue-components",
+        "files": ["AppFooter.vue", "AppLogos.vue", "HiCounter.vue", "InputEntry.vue"],
+        "hasTests": false,
+        "description": "全局组件，自动导入"
+      },
+      {
+        "name": "composables",
+        "path": "src/composables",
+        "type": "composables",
+        "files": ["useCount.ts", "useQuery.ts"],
+        "hasTests": false,
+        "description": "组合式函数，自动导入"
+      },
+      {
+        "name": "layouts",
+        "path": "src/layouts",
+        "type": "layouts",
+        "files": ["default.vue", "home.vue"],
+        "hasTests": false,
+        "description": "布局模板系统"
+      }
+    ]
+  },
+  "coverage": {
+    "totalFiles": 17,
+    "scannedFiles": 17,
+    "coveragePercent": 100,
+    "byCategory": {
+      "config": 10,
+      "vue": 8,
+      "typescript": 4,
+      "scss": 1,
+      "json": 1,
+      "md": 2,
+      "yml": 1
+    }
+  },
+  "ignoreRules": {
+    "source": ".gitignore",
+    "patterns": [
+      "node_modules/**",
+      ".git/**",
+      ".github/**",
+      "dist/**",
+      "build/**",
+      ".next/**",
+      "__pycache__/**",
+      "*.lock",
+      "*.log",
+      "*.bin",
+      "*.pdf",
+      "*.png",
+      "*.jpg",
+      "*.jpeg",
+      "*.gif",
+      "*.mp4",
+      "*.zip",
+      "*.tar",
+      "*.gz",
+      ".DS_Store",
+      "*.local",
+      ".idea",
+      "*.suo",
+      "*.ntvs*",
+      "*.njsproj",
+      "*.sln",
+      "*.sw?",
+      "pages.json",
+      "manifest.json"
+    ]
+  },
+  "gaps": {
+    "missing": [
+      {
+        "category": "tests",
+        "description": "无测试文件和测试配置"
+      },
+      {
+        "category": "stores",
+        "description": "缺少状态管理目录"
+      },
+      {
+        "category": "api",
+        "description": "缺少 API 接口层"
+      },
+      {
+        "category": "utils",
+        "description": "缺少工具函数目录"
+      },
+      {
+        "category": "types",
+        "description": "缺少全局类型定义目录"
+      }
+    ],
+    "recommendations": [
+      "建议添加 Vitest 测试配置",
+      "考虑使用 Pinia 进行状态管理",
+      "建立统一的 API 请求封装",
+      "添加环境变量管理 (.env 文件)"
+    ]
+  },
+  "documentation": {
+    "existingDocs": [
+      {
+        "path": "README.md",
+        "lines": 90,
+        "content": "项目介绍、特性、构建命令"
+      },
+      {
+        "path": "docs/SCRIPTS.md",
+        "lines": 360,
+        "content": "Android/HarmonyOS 打包详细指南"
+      },
+      {
+        "path": "docs/COMMANDS.md",
+        "lines": 109,
+        "content": "命令快速参考"
+      }
+    ],
+    "generatedDocs": [
+      {
+        "path": "CLAUDE.md",
+        "lines": 130,
+        "type": "root-context"
+      }
+    ],
+    "deduplication": {
+      "avoidedDuplicateLines": 559,
+      "method": "使用 @ 引用链接替代重复内容"
+    }
+  },
+  "truncated": false,
+  "nextSteps": [
+    "添加测试框架配置 (Vitest)",
+    "创建 stores/ 目录并配置 Pinia",
+    "建立 utils/ 工具函数库",
+    "添加 API 请求封装层",
+    "配置环境变量管理"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "create-uni": {
+      "command": "npx",
+      "args": [
+        "@create-uni/mcp"
+      ]
+    }
+  }
+}
