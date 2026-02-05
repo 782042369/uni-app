@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.0.0",
   "license": "MIT",
   "engines": {
     "node": ">=24",
@@ -33,6 +33,10 @@
     "@dcloudio/uni-h5": "3.0.0-4070520250711001",
     "@dcloudio/uni-mp-harmony": "3.0.0-4070520250711001",
     "@vueuse/core": "^13.5.0",
+    "big.js": "^7.0.1",
+    "dayjs": "^1.11.19",
+    "es-toolkit": "^1.44.0",
+    "pinia": "^3.0.4",
     "vue": "3.4.21",
     "vue-i18n": "^9.14.5",
     "vue-router": "4.5.1"
@@ -61,6 +65,7 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.32.0",
     "lint-staged": "^16.1.2",
+    "openapi-typescript": "^7.10.1",
     "simple-git-hooks": "^2.13.0",
     "typescript": "~5.8.3",
     "unocss": "66.0.0",

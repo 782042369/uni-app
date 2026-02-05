@@ -23,6 +23,7 @@ declare global {
   const createReactiveFn: typeof import('@vueuse/core')['createReactiveFn']
   const createRef: typeof import('@vueuse/core')['createRef']
   const createReusableTemplate: typeof import('@vueuse/core')['createReusableTemplate']
+  const createSafeAsyncFn: typeof import('./utils/errorHandler')['createSafeAsyncFn']
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
@@ -37,6 +38,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
+  const handleError: typeof import('./utils/errorHandler')['handleError']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -192,6 +194,7 @@ declare global {
   const useEventSource: typeof import('@vueuse/core')['useEventSource']
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
+  const useFeedback: typeof import('./composables/useFeedback')['useFeedback']
   const useFetch: typeof import('@vueuse/core')['useFetch']
   const useFileDialog: typeof import('@vueuse/core')['useFileDialog']
   const useFileSystemAccess: typeof import('@vueuse/core')['useFileSystemAccess']
@@ -229,6 +232,8 @@ declare global {
   const useObjectUrl: typeof import('@vueuse/core')['useObjectUrl']
   const useOffsetPagination: typeof import('@vueuse/core')['useOffsetPagination']
   const useOnline: typeof import('@vueuse/core')['useOnline']
+  const usePageConfig: typeof import('./composables/usePageConfig')['usePageConfig']
+  const usePageConfigStore: typeof import('./stores/pageConfig')['usePageConfigStore']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
   const useParallax: typeof import('@vueuse/core')['useParallax']
   const useParentElement: typeof import('@vueuse/core')['useParentElement']
@@ -248,6 +253,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
+  const useRoute: typeof import('./composables/useRoute')['useRoute']
   const useSSRWidth: typeof import('@vueuse/core')['useSSRWidth']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
@@ -314,12 +320,19 @@ declare global {
   const watchTriggerable: typeof import('@vueuse/core')['watchTriggerable']
   const watchWithFilter: typeof import('@vueuse/core')['watchWithFilter']
   const whenever: typeof import('@vueuse/core')['whenever']
+  const withErrorHandling: typeof import('./utils/errorHandler')['withErrorHandling']
 }
 // for type re-export
 declare global {
   // @ts-ignore
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { PageConfig } from './stores/pageConfig'
+  import('./stores/pageConfig')
+  // @ts-ignore
+  export type { ErrorHandlerOptions } from './utils/errorHandler'
+  import('./utils/errorHandler')
 }
 
 // for vue template auto import
@@ -344,6 +357,7 @@ declare module 'vue' {
     readonly createReactiveFn: UnwrapRef<typeof import('@vueuse/core')['createReactiveFn']>
     readonly createRef: UnwrapRef<typeof import('@vueuse/core')['createRef']>
     readonly createReusableTemplate: UnwrapRef<typeof import('@vueuse/core')['createReusableTemplate']>
+    readonly createSafeAsyncFn: UnwrapRef<typeof import('./utils/errorHandler')['createSafeAsyncFn']>
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
@@ -358,6 +372,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly handleError: UnwrapRef<typeof import('./utils/errorHandler')['handleError']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
@@ -513,6 +528,7 @@ declare module 'vue' {
     readonly useEventSource: UnwrapRef<typeof import('@vueuse/core')['useEventSource']>
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
+    readonly useFeedback: UnwrapRef<typeof import('./composables/useFeedback')['useFeedback']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
@@ -550,6 +566,8 @@ declare module 'vue' {
     readonly useObjectUrl: UnwrapRef<typeof import('@vueuse/core')['useObjectUrl']>
     readonly useOffsetPagination: UnwrapRef<typeof import('@vueuse/core')['useOffsetPagination']>
     readonly useOnline: UnwrapRef<typeof import('@vueuse/core')['useOnline']>
+    readonly usePageConfig: UnwrapRef<typeof import('./composables/usePageConfig')['usePageConfig']>
+    readonly usePageConfigStore: UnwrapRef<typeof import('./stores/pageConfig')['usePageConfigStore']>
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
     readonly useParentElement: UnwrapRef<typeof import('@vueuse/core')['useParentElement']>
@@ -569,6 +587,7 @@ declare module 'vue' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
+    readonly useRoute: UnwrapRef<typeof import('./composables/useRoute')['useRoute']>
     readonly useSSRWidth: UnwrapRef<typeof import('@vueuse/core')['useSSRWidth']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
@@ -635,5 +654,6 @@ declare module 'vue' {
     readonly watchTriggerable: UnwrapRef<typeof import('@vueuse/core')['watchTriggerable']>
     readonly watchWithFilter: UnwrapRef<typeof import('@vueuse/core')['watchWithFilter']>
     readonly whenever: UnwrapRef<typeof import('@vueuse/core')['whenever']>
+    readonly withErrorHandling: UnwrapRef<typeof import('./utils/errorHandler')['withErrorHandling']>
   }
 }
