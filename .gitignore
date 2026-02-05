@@ -23,3 +23,8 @@ dist
 # unh
 pages.json
 manifest.json
+
+# Auto-generated type definitions
+src/components.d.ts
+src/uni-pages.d.ts
+src/auto-imports.d.ts
