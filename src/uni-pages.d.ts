@@ -7,7 +7,6 @@ type _LocationUrl =
   "/pages/index" |
   "/pages/alarm" |
   "/pages/detail" |
-  "/pages/hi" |
   "/pages/monitor" |
   "/pages/profile";
 
@@ -17,7 +16,7 @@ interface NavigateToOptions {
 interface RedirectToOptions extends NavigateToOptions {}
 
 interface SwitchTabOptions {
-  
+  url: "/pages/index" | "/pages/monitor" | "/pages/alarm" | "/pages/profile"
 }
 
 type ReLaunchOptions = NavigateToOptions | SwitchTabOptions;

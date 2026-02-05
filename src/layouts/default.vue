@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 const emit = defineEmits<{
   (e: 'leftClick'): void
   (e: 'rightClick'): void
@@ -7,7 +9,7 @@ const emit = defineEmits<{
 const statusBarHeight = ref(0)
 const safeAreaBottom = ref(0)
 
-const pageConfig = usePageConfigStore()
+const pageConfig = storeToRefs(usePageConfigStore()).config
 onMounted(() => {
   const systemInfo = uni.getSystemInfoSync()
   statusBarHeight.value = systemInfo.statusBarHeight || 0
@@ -16,12 +18,12 @@ onMounted(() => {
 
 // 处理左侧按钮点击
 function handleLeftClick() {
-  if (pageConfig.onLeftClick) {
-    pageConfig.onLeftClick()
+  if (pageConfig.value.onLeftClick) {
+    pageConfig.value.onLeftClick()
     emit('leftClick')
   }
-  else if (pageConfig.showBack) {
-    if (pageConfig.backToHome) {
+  else if (pageConfig.value.showBack) {
+    if (pageConfig.value.backToHome) {
       // 返回首页
       uni.reLaunch({
         url: '/pages/index',
@@ -38,11 +40,11 @@ function handleLeftClick() {
 
 // 处理右侧按钮点击
 function handleRightClick() {
-  if (pageConfig.onRightClick) {
-    pageConfig.onRightClick()
+  if (pageConfig.value.onRightClick) {
+    pageConfig.value.onRightClick()
     emit('rightClick')
   }
-  else if (pageConfig.rightIcon === 'notification') {
+  else if (pageConfig.value.rightIcon === 'notification') {
     // 默认行为：显示通知
     uni.showToast({
       title: '暂无新通知',
