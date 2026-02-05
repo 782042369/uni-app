@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { pageConfigContextKey } from '@/config'
-
 const emit = defineEmits<{
   (e: 'leftClick'): void
   (e: 'rightClick'): void
@@ -10,18 +7,7 @@ const emit = defineEmits<{
 const statusBarHeight = ref(0)
 const safeAreaBottom = ref(0)
 
-// 从页面注入配置，或使用默认值
-const pageConfig = inject(pageConfigContextKey, {
-  title: '矿山监控',
-  showBack: false,
-  backToHome: false,
-  leftIcon: '',
-  rightIcon: 'notification',
-  showTabBar: true,
-  backgroundColor: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
-  textColor: '#ffffff',
-})
-
+const pageConfig = usePageConfigStore()
 onMounted(() => {
   const systemInfo = uni.getSystemInfoSync()
   statusBarHeight.value = systemInfo.statusBarHeight || 0
