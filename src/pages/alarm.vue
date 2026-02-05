@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { AlarmFilter, AlarmItem } from '@/types'
-
 import { ref } from 'vue'
+
+import type { AlarmFilter, AlarmItem } from '@/types'
 
 import { usePageConfig } from '@/composables/usePageConfig'
 
@@ -222,7 +222,7 @@ function handleAlarmAction(_alarm: AlarmItem) {
             </button>
             <button
               v-else
-              class="border-success text-success flex-1 border rounded-lg py-2 text-sm"
+              class="text-success border-success flex-1 border rounded-lg py-2 text-sm"
             >
               查看记录
             </button>

@@ -113,7 +113,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="rounded-lg p-4 bg-white shadow">
+  <div class="rounded-lg bg-white p-4 shadow">
     <h3>{{ props.name }}</h3>
     <p>{{ props.email }}</p>
   </div>
@@ -273,9 +273,9 @@ function fetchData(url: string): Promise<any> {
 <template>
   <!-- ✅ 推荐：原子类 -->
   <div class="flex items-center justify-between p-4">
-
-  <!-- ❌ 避免：内联样式 -->
-  <div style="display: flex; padding: 1rem;">
+    <!-- ❌ 避免：内联样式 -->
+    <div style="display: flex; padding: 1rem;" />
+  </div>
 </template>
 ```
 

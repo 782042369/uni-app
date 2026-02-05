@@ -147,8 +147,10 @@ function handleClick() {
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold">{{ title }}</h1>
-    <button class="px-4 py-2 bg-blue-500 text-white rounded" @click="handleClick">
+    <h1 class="text-2xl font-bold">
+      {{ title }}
+    </h1>
+    <button class="rounded bg-blue-500 px-4 py-2 text-white" @click="handleClick">
       点击我
     </button>
   </div>
@@ -172,7 +174,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="p-4 bg-white rounded shadow">
+  <div class="rounded bg-white p-4 shadow">
     <h3>{{ props.name }}</h3>
   </div>
 </template>
@@ -221,16 +223,16 @@ const { count, increment } = useCounter(0)
 **API：**
 ```vue
 <script setup lang="ts">
-const count = ref(0)  // Vue API
-const { x, y } = useMouse()  // VueUse
-uni.showToast({ title: 'Hello' })  // uni-app API
+const count = ref(0) // Vue API
+const { x, y } = useMouse() // VueUse
+uni.showToast({ title: 'Hello' }) // uni-app API
 </script>
 ```
 
 **Composables：**
 ```vue
 <script setup lang="ts">
-const { data } = useFetch('/api/user')  // 自定义
+const { data } = useFetch('/api/user') // 自定义
 </script>
 ```
 
@@ -239,7 +241,7 @@ const { data } = useFetch('/api/user')  // 自定义
 **优先 UnoCSS：**
 ```vue
 <template>
-  <div class="flex items-center p-4 bg-white rounded-lg">
+  <div class="flex items-center rounded-lg bg-white p-4">
     <!-- 内容 -->
   </div>
 </template>
