@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { usePageConfig } from '@/composables/usePageConfig'
-
-usePageConfig({
-  title: '实时监控',
-  showTabBar: true,
-  showBack: false,
-  backToHome: false,
-  leftIcon: '',
-  rightIcon: 'video',
-  backgroundColor: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
-  textColor: '#ffffff',
+definePage({
+  name: 'monitor',
+  layout: 'tabbar',
+  style: {
+    navigationBarTitleText: '实时监控',
+  },
 })
-
 // 区域选择
 const areas = ref([
   { label: '全部矿井', value: 'all' },

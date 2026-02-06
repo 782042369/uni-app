@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { useFeedback } from '@/composables/useFeedback'
-import { usePageConfig } from '@/composables/usePageConfig'
-
-usePageConfig({
-  title: '我的',
-  showTabBar: true,
-  showBack: false,
-  backToHome: false,
-  leftIcon: '',
-  rightIcon: 'settings',
-  backgroundColor: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
-  textColor: '#ffffff',
+definePage({
+  name: 'about',
+  layout: 'tabbar',
+  style: {
+    navigationBarTitleText: '我的',
+  },
 })
 
-const { showToast: showFeedback } = useFeedback()
+const { show: showToast } = useToast()
 
 // 用户信息
 const userInfo = ref({
@@ -33,35 +25,35 @@ const menuItems = [
     icon: 'i-carbon-user-settings',
     title: '账号管理',
     desc: '修改个人信息',
-    action: () => showFeedback('账号管理'),
+    action: () => showToast('账号管理'),
   },
   {
     id: 'notification',
     icon: 'i-carbon-settings',
     title: '通知设置',
     desc: '消息推送与提醒',
-    action: () => showFeedback('通知设置'),
+    action: () => showToast('通知设置'),
   },
   {
     id: 'language',
     icon: 'i-carbon-language',
     title: '语言设置',
     desc: '切换应用语言',
-    action: () => showFeedback('语言设置'),
+    action: () => showToast('语言设置'),
   },
   {
     id: 'help',
     icon: 'i-carbon-help',
     title: '帮助与反馈',
     desc: '使用说明与问题反馈',
-    action: () => showFeedback('帮助中心'),
+    action: () => showToast('帮助中心'),
   },
   {
     id: 'about',
     icon: 'i-carbon-information',
     title: '关于',
     desc: '版本 1.0.0',
-    action: () => showFeedback('关于我们'),
+    action: () => showToast('关于我们'),
   },
 ]
 </script>
@@ -141,7 +133,7 @@ const menuItems = [
 
       <!-- 退出登录按钮 -->
       <view class="mx-4 mt-6">
-        <button class="text-danger border-danger w-full border rounded-xl bg-white py-3 font-medium transition-opacity active:opacity-80" @click="showFeedback('退出登录')">
+        <button class="text-danger border-danger w-full border rounded-xl bg-white py-3 font-medium transition-opacity active:opacity-80" @click="showToast('退出登录')">
           退出登录
         </button>
       </view>

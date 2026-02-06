@@ -1,0 +1,95 @@
+{
+  "globalStyle": {
+    "navigationBarBackgroundColor": "@navBgColor",
+    "navigationBarTextStyle": "@navTxtStyle",
+    "navigationBarTitleText": "Wot Starter",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom",
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance": 50,
+    "animationType": "pop-in",
+    "animationDuration": 300
+  },
+  "pages": [
+    // #ifdef APP || APP-HARMONY || H5
+    {
+      "path": "pages/index/index",
+      "type": "home",
+      "name": "home",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    // #endif
+    // #ifdef APP || APP-HARMONY
+    {
+      "path": "pages/about/index",
+      "type": "page",
+      "name": "about",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "关于"
+      }
+    },
+    // #endif
+    {
+      "path": "pages/about/index",
+      "type": "page",
+      "name": "about",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/alarm/index",
+      "type": "page",
+      "name": "alarm",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "告警中心"
+      }
+    },
+    {
+      "path": "pages/monitor/index",
+      "type": "page",
+      "name": "monitor",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "实时监控"
+      }
+    }
+  ],
+  "subPackages": [],
+  "tabBar": {
+    "custom": true,
+    "customize": true,
+    "overlay": true,
+    "height": "0",
+    "color": "@tabColor",
+    "selectedColor": "@tabSelectedColor",
+    "backgroundColor": "@tabBgColor",
+    "borderStyle": "@tabBorderStyle",
+    "list": [
+      // #ifdef APP || APP-HARMONY || H5
+      {
+        "pagePath": "pages/index/index"
+      },
+      // #endif
+      // #ifdef APP || APP-HARMONY || H5
+      {
+        "pagePath": "pages/about/index"
+      },
+      // #endif
+      {
+        "pagePath": "pages/monitor/index"
+      },
+      {
+        "pagePath": "pages/alarm/index"
+      }
+    ]
+  }
+}

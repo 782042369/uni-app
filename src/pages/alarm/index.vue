@@ -3,17 +3,12 @@ import { ref } from 'vue'
 
 import type { AlarmFilter, AlarmItem } from '@/types'
 
-import { usePageConfig } from '@/composables/usePageConfig'
-
-usePageConfig({
-  title: '告警中心',
-  showTabBar: true,
-  showBack: false,
-  backToHome: false,
-  leftIcon: '',
-  rightIcon: 'notification',
-  backgroundColor: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
-  textColor: '#ffffff',
+definePage({
+  name: 'alarm',
+  layout: 'tabbar',
+  style: {
+    navigationBarTitleText: '告警中心',
+  },
 })
 
 // Tab 切换
