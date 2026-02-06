@@ -1,8 +1,17 @@
+/*
+ * @Author: weisheng
+ * @Date: 2025-08-28 20:59:43
+ * @LastEditTime: 2025-11-17 14:28:09
+ * @LastEditors: weisheng
+ * @Description:
+ * @FilePath: /wot-starter/manifest.config.ts
+ * 记得注释
+ */
 import { defineManifestConfig } from '@uni-helper/vite-plugin-uni-manifest'
 
 export default defineManifestConfig({
-  'name': 'vitesse-uni-app',
-  'appid': '',
+  'name': 'wzb-wot-starter',
+  'appid': '__UNI__1208592',
   'description': '',
   'versionName': '1.0.0',
   'versionCode': '100',

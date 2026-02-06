@@ -8,7 +8,9 @@ import {
 
 export default defineConfig({
   presets: [
-    presetUni(),
+    presetUni({
+      attributify: false,
+    }),
     presetIcons({
       scale: 1.2,
       warn: true,
@@ -22,5 +24,8 @@ export default defineConfig({
       // },
     }),
   ],
-  transformers: [transformerDirectives(), transformerVariantGroup()],
+  transformers: [
+    transformerDirectives(),
+    transformerVariantGroup(),
+  ],
 })

@@ -9,7 +9,6 @@ export default uni({
     quotes: 'single', // 单引号
   },
   rules: {
-    // 代码风格 相关规则
     'perfectionist/sort-imports': [
       'error',
       {
@@ -18,12 +17,14 @@ export default uni({
         order: 'asc',
       },
     ],
-    'node/prefer-global/process': 'off',
+    'no-console': 'off',
+    'eslint-comments/no-unlimited-disable': 'off',
   },
   ignores: [
     '**/node_modules/**',
     'pnpm-lock.yaml',
     '**/*.md',
+    'src/uni_modules/**/*',
   ],
   formatters: true,
 })
