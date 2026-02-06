@@ -315,7 +315,7 @@ export class UserDemo {
 export class FullDemo {
   // 完整的宠物商店购买流程
   static async completePetStorePurchaseFlow() {
-    console.log('\n🎯 开始完整的宠物商店购买流程演示\n')
+    console.log('\n[Demo] 开始完整的宠物商店购买流程演示\n')
 
     // 1. 用户登录
     const loginResult = await UserDemo.login('admin', 'admin')
@@ -324,18 +324,18 @@ export class FullDemo {
 
     // 2. 查看库存
     const inventory = await StoreDemo.getInventory()
-    console.log('\n📦 当前库存状态:', inventory)
+    console.log('\n[Inventory] 当前库存状态:', inventory)
 
     // 3. 浏览可用宠物
     const availablePets = await PetDemo.getAvailablePets()
     if (!availablePets || availablePets.length === 0) {
-      console.log('❌ 没有可用的宠物')
+      console.log('[Error] 没有可用的宠物')
       return
     }
 
     // 4. 选择第一个宠物
     const selectedPet = availablePets[0]
-    console.log('\n🐕 选择的宠物:', selectedPet)
+    console.log('\n[Selected] 选择的宠物:', selectedPet)
 
     // 5. 查看宠物详情
     if (selectedPet?.id) {
@@ -355,24 +355,24 @@ export class FullDemo {
     // 8. 获取用户信息
     await UserDemo.getUserInfo('admin')
 
-    console.log('\n✅ 完整流程演示结束')
+    console.log('\n[Success] 完整流程演示结束')
   }
 
   // 错误处理演示
   static async errorHandlingDemo() {
-    console.log('\n⚠️ 开始错误处理演示\n')
+    console.log('\n[Demo] 开始错误处理演示\n')
 
     // 测试各种错误情况
     await PetDemo.testPetNotFound()
     await StoreDemo.testInvalidOrderId()
     await UserDemo.testUserNotFound()
 
-    console.log('\n✅ 错误处理演示结束')
+    console.log('\n[Success] 错误处理演示结束')
   }
 
   // CRUD操作演示
   static async crudDemo() {
-    console.log('\n🔄 开始CRUD操作演示\n')
+    console.log('\n[Demo] 开始CRUD操作演示\n')
 
     // 创建
     const newPet = await PetDemo.addNewPet()
@@ -396,13 +396,13 @@ export class FullDemo {
     if (newPet?.id)
       await PetDemo.deletePet(newPet.id)
 
-    console.log('\n✅ CRUD操作演示结束')
+    console.log('\n[Success] CRUD操作演示结束')
   }
 }
 
 // 导出演示运行器
 export async function runMockDemo() {
-  console.log('🚀 开始Mock数据演示\n')
+  console.log('[Demo] 开始Mock数据演示\n')
 
   try {
     // 运行完整流程演示
