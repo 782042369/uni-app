@@ -4,7 +4,9 @@
     {
       "name": "Debug h5",
       "type": "chrome",
-      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "runtimeArgs": [
+        "--remote-debugging-port=9222"
+      ],
       "request": "launch",
       "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}",

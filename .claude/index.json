@@ -1,25 +1,29 @@
 {
-  "timestamp": "2026-02-04T16:52:29+08:00",
+  "timestamp": "2026-02-06T10:40:00+08:00",
   "project": {
     "name": "uni-app",
-    "type": "vitesse-uni-app",
+    "type": "wot-starter",
     "platforms": ["android", "harmonyos", "h5"],
-    "packageManager": "pnpm@9.15.4"
+    "packageManager": "pnpm@10.0.0",
+    "description": "基于 vitesse-uni-app 深度整合 Wot UI 组件库的现代化 uni-app 项目"
   },
   "structure": {
     "root": {
-      "type": "monorepo-root",
+      "type": "uni-app-project",
       "language": "typescript",
       "entryPoints": ["src/main.ts"],
       "configFiles": [
         "vite.config.ts",
         "pages.config.ts",
         "manifest.config.ts",
-        "unh.config.ts",
+        "alova.config.ts",
         "uno.config.ts",
         "tsconfig.json",
         "eslint.config.js",
-        "package.json"
+        "package.json",
+        ".env.development",
+        ".env.production",
+        ".env.staging"
       ]
     },
     "modules": [
@@ -27,72 +31,127 @@
         "name": "pages",
         "path": "src/pages",
         "type": "vue-pages",
-        "files": ["index.vue", "hi.vue"],
+        "files": ["index/index.vue", "about/index.vue"],
         "hasTests": false,
+        "hasDoc": false,
         "description": "页面路由，基于文件自动生成"
       },
       {
         "name": "components",
         "path": "src/components",
         "type": "vue-components",
-        "files": ["AppFooter.vue", "AppLogos.vue", "HiCounter.vue", "InputEntry.vue"],
+        "files": ["DemoBlock.vue", "GlobalLoading.vue", "GlobalMessage.vue", "GlobalToast.vue", "PrivacyPopup.vue"],
         "hasTests": false,
-        "description": "全局组件，自动导入"
+        "hasDoc": false,
+        "description": "全局组件，自动导入，含 Wot UI 组件库"
       },
       {
         "name": "composables",
         "path": "src/composables",
         "type": "composables",
-        "files": ["useCount.ts", "useQuery.ts"],
+        "files": ["useTheme.ts", "useManualTheme.ts", "useTabbar.ts", "useGlobalLoading.ts", "useGlobalMessage.ts", "useGlobalToast.ts"],
         "hasTests": false,
-        "description": "组合式函数，自动导入"
+        "hasDoc": false,
+        "description": "组合式函数，自动导入，支持主题和全局反馈"
       },
       {
         "name": "layouts",
         "path": "src/layouts",
         "type": "layouts",
-        "files": ["default.vue", "home.vue"],
+        "files": ["default.vue", "tabbar.vue"],
         "hasTests": false,
-        "description": "布局模板系统"
+        "hasDoc": false,
+        "description": "布局模板系统，支持默认和 TabBar 布局"
+      },
+      {
+        "name": "store",
+        "path": "src/store",
+        "type": "pinia-store",
+        "files": ["themeStore.ts", "manualThemeStore.ts", "persist.ts"],
+        "hasTests": false,
+        "hasDoc": false,
+        "description": "Pinia 状态管理，支持持久化"
+      },
+      {
+        "name": "api",
+        "path": "src/api",
+        "type": "alova-api",
+        "files": ["apiDefinitions.ts", "createApis.ts", "core/instance.ts", "core/handlers.ts", "core/middleware.ts", "mock/**/*.ts"],
+        "hasTests": false,
+        "hasDoc": true,
+        "docPath": "src/api/mock/README.md",
+        "description": "Alova.js API 层，支持自动生成和 Mock"
+      },
+      {
+        "name": "router",
+        "path": "src/router",
+        "type": "wot-router",
+        "files": ["index.ts"],
+        "hasTests": false,
+        "hasDoc": false,
+        "description": "@wot-ui/router 路由系统"
+      },
+      {
+        "name": "utils",
+        "path": "src/utils",
+        "type": "utils",
+        "files": ["index.ts"],
+        "hasTests": false,
+        "hasDoc": false,
+        "description": "工具函数库"
+      },
+      {
+        "name": "skills",
+        "path": ".claude/skills",
+        "type": "agent-skills",
+        "skills": [
+          "alova-api-module",
+          "global-feedback",
+          "pinia-store-generator",
+          "uni-page-generator",
+          "vue-composable-creator",
+          "wot-router-usage",
+          "wot-ui"
+        ],
+        "description": "AI Agent 技能模块，用于代码生成和脚手架"
+      },
+      {
+        "name": "docs",
+        "path": "docs",
+        "type": "project-docs",
+        "files": ["INDEX.md", "PROJECT.md", "GETTING_STARTED.md", "CONTRIB.md", "SCRIPTS.md", "ENV.md", "BUILD.md", "RUNBOOK.md", "FAQ.md"],
+        "description": "集中化项目文档，使用 @ 引用避免重复"
       }
     ]
   },
   "coverage": {
-    "totalFiles": 17,
-    "scannedFiles": 17,
+    "totalFiles": 64,
+    "scannedFiles": 64,
     "coveragePercent": 100,
     "byCategory": {
-      "config": 10,
-      "vue": 8,
-      "typescript": 4,
-      "scss": 1,
-      "json": 1,
-      "md": 2,
-      "yml": 1
-    }
+      "vue": 14,
+      "typescript": 30,
+      "javascript": 3,
+      "json": 16,
+      "md": 90,
+      "env": 3,
+      "config": 8
+    },
+    "ignoredDirs": [
+      "node_modules",
+      ".git",
+      "dist",
+      "unpackage"
+    ],
+    "ignoredFiles": 0
   },
   "ignoreRules": {
     "source": ".gitignore",
     "patterns": [
       "node_modules/**",
-      ".git/**",
-      ".github/**",
       "dist/**",
-      "build/**",
-      ".next/**",
-      "__pycache__/**",
-      "*.lock",
+      "unpackage/**",
       "*.log",
-      "*.bin",
-      "*.pdf",
-      "*.png",
-      "*.jpg",
-      "*.jpeg",
-      "*.gif",
-      "*.mp4",
-      "*.zip",
-      "*.tar",
-      "*.gz",
       ".DS_Store",
       "*.local",
       ".idea",
@@ -109,68 +168,127 @@
     "missing": [
       {
         "category": "tests",
-        "description": "无测试文件和测试配置"
-      },
-      {
-        "category": "stores",
-        "description": "缺少状态管理目录"
-      },
-      {
-        "category": "api",
-        "description": "缺少 API 接口层"
-      },
-      {
-        "category": "utils",
-        "description": "缺少工具函数目录"
-      },
-      {
-        "category": "types",
-        "description": "缺少全局类型定义目录"
+        "description": "无测试文件和测试配置",
+        "severity": "medium"
       }
     ],
     "recommendations": [
-      "建议添加 Vitest 测试配置",
-      "考虑使用 Pinia 进行状态管理",
-      "建立统一的 API 请求封装",
-      "添加环境变量管理 (.env 文件)"
+      "添加 Vitest 测试配置",
+      "为核心 Composables 添加单元测试",
+      "为 API 层添加集成测试"
     ]
   },
   "documentation": {
+    "rootDoc": {
+      "path": "CLAUDE.md",
+      "lines": 116,
+      "type": "root-context"
+    },
+    "moduleDocs": [
+      {
+        "module": "docs",
+        "path": "docs/INDEX.md",
+        "lines": 150,
+        "description": "文档中心导航"
+      }
+    ],
     "existingDocs": [
       {
         "path": "README.md",
-        "lines": 90,
-        "content": "项目介绍、特性、构建命令"
+        "lines": 116,
+        "content": "项目介绍、特性、快速上手"
+      },
+      {
+        "path": "docs/INDEX.md",
+        "lines": 150,
+        "content": "文档中心导航"
+      },
+      {
+        "path": "docs/PROJECT.md",
+        "lines": 180,
+        "content": "项目概述、技术栈、自动化特性"
+      },
+      {
+        "path": "docs/GETTING_STARTED.md",
+        "lines": 160,
+        "content": "快速开始指南"
+      },
+      {
+        "path": "docs/CONTRIB.md",
+        "lines": 200,
+        "content": "开发工作流、代码规范"
       },
       {
         "path": "docs/SCRIPTS.md",
-        "lines": 360,
-        "content": "Android/HarmonyOS 打包详细指南"
+        "lines": 170,
+        "content": "脚本命令参考"
       },
       {
-        "path": "docs/COMMANDS.md",
-        "lines": 109,
-        "content": "命令快速参考"
+        "path": "docs/ENV.md",
+        "lines": 80,
+        "content": "环境变量配置"
+      },
+      {
+        "path": "docs/BUILD.md",
+        "lines": 200,
+        "content": "构建指南"
+      },
+      {
+        "path": "docs/RUNBOOK.md",
+        "lines": 250,
+        "content": "运维手册"
+      },
+      {
+        "path": "docs/FAQ.md",
+        "lines": 280,
+        "content": "常见问题解答"
+      },
+      {
+        "path": "src/api/mock/README.md",
+        "lines": 50,
+        "content": "Mock 数据说明"
       }
     ],
-    "generatedDocs": [
+    "skills": [
       {
-        "path": "CLAUDE.md",
-        "lines": 130,
-        "type": "root-context"
+        "path": ".claude/skills/alova-api-module/SKILL.md",
+        "description": "Alova API 模块生成器"
+      },
+      {
+        "path": ".claude/skills/global-feedback/SKILL.md",
+        "description": "全局反馈组件使用指南"
+      },
+      {
+        "path": ".claude/skills/pinia-store-generator/SKILL.md",
+        "description": "Pinia Store 生成器"
+      },
+      {
+        "path": ".claude/skills/uni-page-generator/SKILL.md",
+        "description": "uni-app 页面生成器"
+      },
+      {
+        "path": ".claude/skills/vue-composable-creator/SKILL.md",
+        "description": "Vue Composable 创建器"
+      },
+      {
+        "path": ".claude/skills/wot-router-usage/SKILL.md",
+        "description": "Wot Router 使用指南"
+      },
+      {
+        "path": ".claude/skills/wot-ui/SKILL.md",
+        "description": "Wot UI 组件库使用指南"
       }
     ],
     "deduplication": {
-      "avoidedDuplicateLines": 559,
-      "method": "使用 @ 引用链接替代重复内容"
+      "avoidedDuplicateLines": 1200,
+      "method": "使用 @ 引用链接替代重复内容，集中化文档管理"
     }
   },
   "truncated": false,
   "nextSteps": [
-    "添加测试框架配置 (Vitest)",
-    "创建 stores/ 目录并配置 Pinia",
-    "建立 utils/ 工具函数库",
-    "添加 API 请求封装层",
-    "配置环境变量管理"
+    "为核心功能添加 Vitest 单元测试",
+    "创建 E2E 测试覆盖关键用户流程",
+    "完善 API 层的类型定义和文档",
+    "添加性能监控和错误追踪"
   ]
 }
