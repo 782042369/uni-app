@@ -8,52 +8,32 @@ definePage({
     navigationBarTitleText: '首页',
   },
 })
-const {
-  theme,
-  toggleTheme,
-  currentThemeColor,
-  showThemeColorSheet,
-  themeColorOptions,
-  openThemeColorPicker,
-  closeThemeColorPicker,
-  selectThemeColor,
-  setFollowSystem,
-} = useManualTheme()
-
-const isDark = computed({
-  get() {
-    return theme.value === 'dark'
-  },
-  set() {
-    toggleTheme()
-  },
-})
-// 处理主题色选择
-function handleThemeColorSelect(option: any) {
-  selectThemeColor(option)
-}
 
 // 关键指标数据
 const keyMetrics = [
   {
     label: '在线设备',
     value: '128',
-    color: 'text-primary',
+    color: 'text-industrial-blue',
+    icon: 'i-carbon-machine-learning',
   },
   {
     label: '正常状态',
     value: '85',
-    color: 'text-success',
+    color: 'text-industrial-green',
+    icon: 'i-carbon-checkmark-outline',
   },
   {
     label: '告警数量',
     value: '12',
-    color: 'text-warning',
+    color: 'text-industrial-orange',
+    icon: 'i-carbon-notification',
   },
   {
     label: '故障设备',
     value: '3',
-    color: 'text-danger',
+    color: 'text-industrial-red',
+    icon: 'i-carbon-error',
   },
 ]
 
@@ -103,157 +83,145 @@ function handleCardClick(type: string) {
 </script>
 
 <template>
-  <view class="bg-bg-secondary min-h-screen">
-    <demo-block title="基础设置" transparent>
-      <wd-cell-group border custom-class="rounded-2! overflow-hidden">
-        <wd-cell title="暗黑模式">
-          <wd-switch v-model="isDark" size="18px" />
-        </wd-cell>
-        <wd-cell title="跟随系统">
-          <wd-button size="small" @click="setFollowSystem">
-            跟随系统
-          </wd-button>
-        </wd-cell>
-        <wd-cell title="选择主题色" is-link @click="openThemeColorPicker">
-          <view class="flex items-center justify-end gap-2">
-            <view
-              class="h-4 w-4 rounded-full"
-              :style="{ backgroundColor: currentThemeColor.primary }"
-            />
-            <text>{{ currentThemeColor.name }}</text>
-          </view>
-        </wd-cell>
-      </wd-cell-group>
-    </demo-block>
-
-    <!-- 主题色选择 ActionSheet -->
-    <wd-action-sheet
-      v-model="showThemeColorSheet"
-      title="选择主题色"
-      :close-on-click-action="true"
-      @cancel="closeThemeColorPicker"
-    >
-      <view class="px-4 pb-4">
-        <view
-          v-for="option in themeColorOptions"
-          :key="option.value"
-          class="flex items-center justify-between border-b border-gray-100 py-3 last:border-b-0 dark:border-gray-700"
-          @click="handleThemeColorSelect(option)"
-        >
-          <view class="flex items-center gap-3">
-            <view
-              class="h-6 w-6 border-2 border-gray-200 rounded-full dark:border-gray-600"
-              :style="{ backgroundColor: option.primary }"
-            />
-            <text class="text-4 text-gray-800 dark:text-gray-200">
-              {{ option.name }}
-            </text>
-          </view>
-          <wd-icon
-            v-if="currentThemeColor.value === option.value"
-            name="check"
-            :color="option.primary"
-            size="20px"
-          />
-        </view>
+  <view class="bg-bg-secondary min-h-screen grid-bg dark:bg-industrial-bg">
+    <!-- 顶部状态条 -->
+    <view class="sticky top-0 z-50 flex-between border-b border-gray-100 glass-effect px-5 py-3 dark:border-industrial-border/30">
+      <view class="flex items-center gap-2">
+        <view class="status-dot-glow bg-industrial-green" />
+        <text class="tech-label text-[10px] text-gray-500 dark:text-industrial-cyan">
+          系统运行中
+        </text>
       </view>
-      <wd-gap :height="50" />
-    </wd-action-sheet>
-    <!-- 内容区域 -->
-    <scroll-view scroll-y>
-      <!-- 关键指标卡片 -->
+      <view class="flex items-center gap-3">
+        <text class="text-[10px] text-gray-400 font-medium tech-num tracking-wider">
+          {{ new Date().toLocaleTimeString() }}
+        </text>
+        <view class="i-carbon-settings text-sm text-gray-400" />
+      </view>
+    </view>
+
+    <scroll-view scroll-y class="pb-10">
+      <!-- 核心指标 -->
       <view class="grid grid-cols-2 gap-3 p-4">
         <view
           v-for="metric in keyMetrics"
           :key="metric.label"
-          class="rounded-xl bg-white p-4 shadow-sm transition-transform active:scale-95"
+          class="group tech-card tech-corner transition-transform active:scale-95"
           @click="handleCardClick(metric.label)"
         >
-          <view :class="`text-3xl font-bold ${metric.color}`">
-            {{ metric.value }}
-          </view>
-          <view class="text-secondary mt-1 text-sm">
-            {{ metric.label }}
+          <view class="absolute rotate-12 text-5xl opacity-10 transition-transform -right-3 -top-3 group-hover:scale-110" :class="metric.icon" />
+          <view class="relative z-1">
+            <view class="flex items-baseline gap-1">
+              <text :class="`text-3xl tech-num ${metric.color}`">
+                {{ metric.value }}
+              </text>
+              <text class="text-[10px] font-bold uppercase opacity-40">
+                单位
+              </text>
+            </view>
+            <view class="mt-2 flex items-center gap-1.5">
+              <view class="h-[1px] w-3 bg-current opacity-30" :class="metric.color" />
+              <text class="tech-label text-gray-400 dark:text-gray-500">
+                {{ metric.label }}
+              </text>
+            </view>
           </view>
         </view>
       </view>
 
-      <!-- 紧急告警卡片 -->
+      <!-- 紧急告警 -->
       <view
-        class="from-danger-bg border-danger mx-4 mt-2 border-l-4 rounded-xl to-white bg-gradient-to-r p-4 shadow-sm transition-transform active:scale-[0.98]"
+        class="tech-card mx-4 mb-4 overflow-hidden border-l-3 border-l-industrial-red from-industrial-red/5 to-transparent bg-gradient-to-r"
         @click="handleCardClick('紧急告警')"
       >
-        <view class="flex items-start justify-between">
+        <view class="animate-scan pointer-events-none absolute inset-0 opacity-20 scan-line" />
+
+        <view class="relative z-1 flex-between">
           <view class="flex items-center gap-2">
-            <view class="text-danger i-carbon-warning-alt text-xl" />
-            <text class="text-danger text-sm font-medium">
+            <view class="i-carbon-warning-alt animate-pulse text-lg text-industrial-red" />
+            <text class="text-xs text-industrial-red font-bold tracking-tighter uppercase">
               紧急告警
             </text>
           </view>
-          <text class="text-tertiary text-xs">
-            {{ emergencyAlarm.time }}
-          </text>
-        </view>
-
-        <view class="mt-3">
-          <text class="text-primary text-base font-semibold">
-            {{ emergencyAlarm.message }}
-          </text>
-        </view>
-
-        <view class="text-secondary mt-2 text-sm">
-          <text>📍 {{ emergencyAlarm.location }}</text>
-        </view>
-
-        <view class="mt-3 flex items-center justify-between">
-          <view class="text-tertiary text-xs">
-            状态：<text class="text-danger font-medium">
-              {{ emergencyAlarm.status }}
+          <view class="flex items-center gap-1 border border-industrial-red/20 rounded bg-industrial-red/10 px-1.5 py-0.5">
+            <text class="text-[9px] text-industrial-red tech-num">
+              一级
             </text>
           </view>
-          <view class="text-danger bg-danger-bg rounded px-2 py-1 text-xs">
-            立即处理
+        </view>
+
+        <view class="relative z-1 mt-3">
+          <view class="text-lg text-gray-800 font-800 leading-tight tracking-tight dark:text-gray-100">
+            {{ emergencyAlarm.message }}
           </view>
+          <view class="mt-2 flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+            <view class="i-carbon-location text-sm" />
+            <text class="font-medium">
+              {{ emergencyAlarm.location }}
+            </text>
+            <text class="ml-auto tech-num opacity-60">
+              {{ emergencyAlarm.time }}
+            </text>
+          </view>
+        </view>
+
+        <view class="relative z-1 mt-4 flex gap-3">
+          <wd-button type="error" size="small" block custom-class="rounded-md! font-bold uppercase tracking-widest text-[10px] h-8" @click.stop="handleCardClick('立即处理')">
+            确认并执行处理
+          </wd-button>
         </view>
       </view>
 
-      <!-- 环境监测卡片 -->
-      <view class="grid grid-cols-2 mx-4 mt-4 gap-3">
+      <!-- 环境监控 -->
+      <view class="grid grid-cols-2 mx-4 gap-3">
         <view
           v-for="item in envData"
           :key="item.label"
-          class="h-30 flex flex-col justify-between rounded-xl bg-white p-4 shadow-sm transition-transform active:scale-95"
+          class="tech-card tech-corner !p-3"
           @click="handleCardClick(item.label)"
         >
-          <view class="text-secondary text-sm">
-            {{ item.label }}
+          <view class="mb-2 flex-between">
+            <text class="tech-label">
+              {{ item.label }}
+            </text>
+            <view class="status-dot" :class="item.percentage > 80 ? 'bg-industrial-orange' : 'bg-industrial-cyan'" />
           </view>
-          <view :class="`text-xl font-bold ${item.color}`">
+          <view :class="`text-xl tech-num ${item.color}`">
             {{ item.value }}
           </view>
-          <view class="bg-bg-tertiary h-1.5 w-full overflow-hidden rounded-full">
+          <view class="relative mt-3 h-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
             <view
-              class="bg-primary h-full rounded-full transition-all duration-300"
+              class="absolute inset-y-0 left-0 bg-industrial-blue shadow-[0_0_8px_rgba(0,102,255,0.5)] transition-all duration-1000"
               :style="{ width: `${item.percentage}%` }"
             />
           </view>
         </view>
       </view>
 
-      <!-- 实时数据趋势图占位 -->
-      <view class="mx-4 mt-4 rounded-xl bg-white p-4 shadow-sm transition-transform active:scale-[0.98]" @click="handleCardClick('趋势图')">
-        <view class="mb-3 flex items-center justify-between">
-          <text class="text-primary text-base font-semibold">
-            📊 实时数据趋势
-          </text>
-          <text class="text-secondary text-xs">
-            最近24小时
-          </text>
+      <!-- 趋势分析 -->
+      <view class="group tech-card tech-corner mx-4 mt-4" @click="handleCardClick('趋势图')">
+        <view class="mb-4 flex-between">
+          <view class="flex items-center gap-2">
+            <view class="i-carbon-analytics text-lg text-industrial-cyan" />
+            <text class="text-sm font-bold tracking-widest uppercase dark:text-gray-200">
+              实时数据分析
+            </text>
+          </view>
+          <view class="flex items-center gap-1.5">
+            <view class="status-dot animate-pulse bg-industrial-cyan" />
+            <text class="text-[9px] tech-num uppercase opacity-50">
+              数据记录中...
+            </text>
+          </view>
         </view>
-        <view class="bg-bg-secondary h-40 flex flex-col items-center justify-center rounded-lg">
-          <view class="text-tertiary i-carbon-chart-line-smooth text-6xl" />
-          <text class="text-secondary mt-2 text-sm">
-            折线图区域
+
+        <view class="relative h-40 flex-center flex-col overflow-hidden border border-gray-100/50 rounded bg-gray-50/50 dark:border-industrial-border/20 dark:bg-industrial-bg/40">
+          <view class="absolute inset-0 grid-bg opacity-20" />
+          <view class="animate-scan pointer-events-none absolute inset-0 opacity-10 scan-line" />
+
+          <view class="i-carbon-chart-line relative z-1 text-6xl text-gray-200 dark:text-industrial-border/50" />
+          <text class="relative z-1 mt-2 tech-label text-gray-400 dark:text-gray-500">
+            遥测数据可视化
           </text>
         </view>
       </view>
