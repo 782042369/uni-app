@@ -9,7 +9,10 @@
 - [开发模式](#开发模式)
 - [生产构建](#生产构建)
 - [代码质量](#代码质量)
-- [项目信息](#项目信息)
+- [版本管理](#版本管理)
+- [API 生成](#api-生成)
+- [Git Hooks](#git-hooks)
+- [平台对比](#平台对比)
 
 ---
 
@@ -19,8 +22,6 @@
 
 ```bash
 pnpm dev
-# 或
-pnpm dev:h5
 ```
 
 启动 H5 开发服务器，支持热更新。
@@ -33,11 +34,11 @@ pnpm dev:h5
 - 🎨 UnoCSS 即时编译
 - 🔍 TypeScript 类型检查
 
+---
+
 ### Android 开发
 
 ```bash
-pnpm dev:android
-# 或
 pnpm dev:app
 ```
 
@@ -49,6 +50,8 @@ pnpm dev:app
 - 配置 `manifest.config.ts` 中的 `appid`
 
 **产物位置：** `unpackage/dist/dev/app-plus/`
+
+---
 
 ### HarmonyOS 开发
 
@@ -73,8 +76,6 @@ pnpm dev:harmony
 
 ```bash
 pnpm build
-# 或
-pnpm build:h5
 ```
 
 构建 H5 生产版本。
@@ -87,11 +88,11 @@ pnpm build:h5
 - 资源哈希化（长期缓存）
 - 生成 source map（可选）
 
+---
+
 ### Android 构建
 
 ```bash
-pnpm build:android
-# 或
 pnpm build:app
 ```
 
@@ -104,6 +105,8 @@ pnpm build:app
 - **本地打包**：使用 Android Studio 打包
 
 详细步骤见 [BUILD.md](./BUILD.md#android-apk-打包)
+
+---
 
 ### HarmonyOS 构建
 
@@ -139,6 +142,8 @@ pnpm type-check
 
 **不生成输出文件**（`--noEmit`）
 
+---
+
 ### ESLint 代码检查
 
 ```bash
@@ -155,6 +160,63 @@ pnpm lint
 - ✅ 排序导入语句
 - ✅ 统一引号和缩进
 - ⚠️ 部分复杂问题需要手动修复
+
+---
+
+## 版本管理
+
+### 规范化提交
+
+```bash
+pnpm commit
+```
+
+使用 Commitizen 进行规范化提交。
+
+**提交类型：**
+- `feat:` - 新功能
+- `fix:` - Bug 修复
+- `docs:` - 文档更新
+- `style:` - 代码格式调整
+- `refactor:` - 重构
+- `perf:` - 性能优化
+- `test:` - 测试相关
+- `chore:` - 构建/工具更新
+- `ci:` - CI 配置
+
+---
+
+### 发布版本
+
+```bash
+# 主版本（破坏性变更）
+pnpm release-major
+
+# 次版本（新功能）
+pnpm release-minor
+
+# 补丁版本（Bug 修复）
+pnpm release-patch
+```
+
+使用 standard-version 自动生成 CHANGELOG 并更新版本号。
+
+---
+
+## API 生成
+
+### 重新生成 API 定义
+
+```bash
+pnpm alova-gen
+```
+
+基于 Alova 配置重新生成 API 定义和类型。
+
+**功能：**
+- 扫描 API 模块
+- 生成 TypeScript 类型
+- 更新 API 定义文件
 
 ---
 
@@ -182,10 +244,10 @@ pnpm about
 
 ```bash
 # 自动触发（无需手动运行）
-pnpm lint-staged
+# 配置：simple-git-hooks → lint-staged
 ```
 
-每次提交前自动运行，由 `simple-git-hooks` 配置。
+每次提交前自动运行。
 
 **执行流程：**
 1. 触发 Git pre-commit hook
@@ -194,13 +256,15 @@ pnpm lint-staged
 4. 检查通过后允许提交
 5. 检查失败阻止提交
 
-**配置位置：** `package.json` → `lint-staged`
+**配置位置：** `package.json` → `simple-git-hooks` → `lint-staged`
+
+---
 
 ### Post-install Hook
 
 ```bash
 # 自动触发（无需手动运行）
-npx simple-git-hooks
+# 配置：postinstall → npx simple-git-hooks
 ```
 
 安装依赖后自动设置 Git hooks。
@@ -212,7 +276,7 @@ npx simple-git-hooks
 | 平台 | 开发命令 | 构建命令 | 产物位置 | 最终打包 |
 |------|---------|---------|---------|---------|
 | **H5** | `pnpm dev` | `pnpm build` | `unpackage/dist/build/h5/` | 直接部署 |
-| **Android** | `pnpm dev:android` | `pnpm build:android` | `unpackage/resources/` | Android Studio / 云打包 |
+| **Android** | `pnpm dev:app` | `pnpm build:app` | `unpackage/resources/` | Android Studio / 云打包 |
 | **HarmonyOS** | `pnpm dev:harmony` | `pnpm build:harmony` | `unpackage/dist/build/app-harmony/` | DevEco Studio |
 
 ---
@@ -230,16 +294,16 @@ npx simple-git-hooks
 ## 常见问题
 
 ### Q: `pnpm dev` 启动失败？
-A: 检查 Node.js 版本，清理 node_modules 重新安装。详见 @GETTING_STARTED.md#常见问题
+A: 检查 Node.js 版本，清理 node_modules 重新安装。详见 @FAQ.md#开发环境问题
 
 ### Q: `pnpm build` 报类型错误？
-A: 运行 `pnpm type-check` 查看详细错误。详见 @RUNBOOK.md#常见问题
+A: 运行 `pnpm type-check` 查看详细错误。详见 @FAQ.md#构建打包问题
 
 ### Q: Android/HarmonyOS 构建后没有安装包？
 A: 构建命令只生成资源，需要使用对应工具完成最终打包。详见 @BUILD.md
 
 ### Q: Git hook 不生效？
-A: 重新安装依赖触发 post-install hook。详见 @GETTING_STARTED.md#常见问题
+A: 重新运行 `pnpm install` 触发 post-install hook。详见 @FAQ.md#开发环境问题
 
 ---
 
@@ -248,8 +312,9 @@ A: 重新安装依赖触发 post-install hook。详见 @GETTING_STARTED.md#常�
 - [构建指南](./BUILD.md) - 详细的构建和打包流程
 - [环境配置](./ENV.md) - 环境变量配置
 - [开发工作流](./CONTRIB.md) - 开发规范和最佳实践
+- [常见问题](./FAQ.md) - 问题排查指南
 
 ---
 
-最后更新：2026-02-04
-数据源：package.json
+最后更新：2026-02-06
+数据源：package.json (v0.0.0)

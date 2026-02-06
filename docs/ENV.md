@@ -1,6 +1,6 @@
 # 环境变量配置
 
-> 单一数据源：`.env.example`
+> 单一数据源：`.env.development` 和 `.env.production`
 
 本文档说明项目中的环境变量配置。
 
@@ -11,18 +11,42 @@
 1. `.env.local` - 本地覆盖（不提交到 Git）
 2. `.env.development` - 开发环境
 3. `.env.production` - 生产环境
-4. `.env.test` - 测试环境
+4. `.env.staging` - 预发布环境
 5. `.env` - 默认配置
 
-## 环境变量列表
+---
 
-**注意：** 本项目当前未配置 `.env.example` 文件。
+## 当前配置的环境变量
 
-### 建议的环境变量
+### 开发环境（.env.development）
 
-以下为建议添加的环境变量（需根据实际需求配置）：
+```bash
+# API 基础 URL - 开发环境
+VITE_API_BASE_URL=https://petstore3.swagger.io/api/v3
 
-#### 应用基础配置
+# 环境名称
+VITE_ENV_NAME=development
+```
+
+### 生产环境（.env.production）
+
+```bash
+# API 基础 URL - 生产环境
+VITE_API_BASE_URL=https://api.yourapp.com
+
+# 环境名称
+VITE_ENV_NAME=production
+```
+
+### 预发布环境（.env.staging）
+
+配置文件已创建，当前未配置具体变量。
+
+---
+
+## 建议添加的环境变量
+
+### 应用基础配置
 
 ```bash
 # 应用名称
@@ -31,11 +55,11 @@ VITE_APP_NAME=uni-app
 # 应用版本
 VITE_APP_VERSION=1.0.0
 
-# 应用环境（development | production）
+# 应用环境（development | production | staging）
 VITE_APP_ENV=development
 ```
 
-#### API 配置
+### API 配置
 
 ```bash
 # API 基础 URL
@@ -48,7 +72,7 @@ VITE_API_TIMEOUT=10000
 VITE_API_RETRY_COUNT=3
 ```
 
-#### 平台配置
+### 平台配置
 
 ```bash
 # DCloud AppID
@@ -61,7 +85,7 @@ VITE_WECHAT_APPID=your-wechat-appid
 VITE_ALIPAY_APPID=your-alipay-appid
 ```
 
-#### 第三方服务
+### 第三方服务
 
 ```bash
 # 统计服务 ID
@@ -74,7 +98,7 @@ VITE_SENTRY_DSN=your-sentry-dsn
 VITE_MAP_KEY=your-map-key
 ```
 
-#### 功能开关
+### 功能开关
 
 ```bash
 # 启用调试模式
@@ -130,10 +154,10 @@ if (import.meta.env.MODE === 'development') {
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_APP_NAME: string
-  readonly VITE_APP_VERSION: string
   readonly VITE_API_BASE_URL: string
-  readonly VITE_API_TIMEOUT: number
+  readonly VITE_ENV_NAME: string
+  readonly VITE_APP_NAME?: string
+  readonly VITE_APP_VERSION?: string
   // ... 其他环境变量
 }
 
@@ -177,14 +201,14 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL
 
 **开发环境：** `.env.development`
 ```bash
-VITE_APP_ENV=development
+VITE_ENV_NAME=development
 VITE_API_BASE_URL=http://localhost:3000
 VITE_DEBUG=true
 ```
 
 **生产环境：** `.env.production`
 ```bash
-VITE_APP_ENV=production
+VITE_ENV_NAME=production
 VITE_API_BASE_URL=https://api.example.com
 VITE_DEBUG=false
 ```
@@ -197,6 +221,7 @@ project/
 ├── .env.example          # 示例模板（提交）
 ├── .env.development      # 开发环境（提交）
 ├── .env.production       # 生产环境（提交）
+├── .env.staging          # 预发布环境（提交）
 ├── .env.local            # 本地覆盖（不提交）
 └── .gitignore           # 忽略 .env.local
 ```
@@ -256,10 +281,11 @@ A: 注意：
 ## 下一步
 
 1. 创建 `.env.example` 文件作为模板
-2. 配置开发、生产环境变量
-3. 添加 TypeScript 类型定义
-4. 更新 `.gitignore` 忽略敏感文件
+2. 根据实际需求添加更多环境变量
+3. 完善 TypeScript 类型定义
+4. 配置各环境的专属变量
 
 ---
 
-最后更新：2026-02-04
+最后更新：2026-02-06
+数据源：.env.development, .env.production
