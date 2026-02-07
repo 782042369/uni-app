@@ -4,7 +4,7 @@
  * 提供跨 store 共享的主题相关功能
  */
 
-import { themeColorOptions } from '@/composables/types/theme'
+import { NAVIGATION_BAR_COLORS, themeColorOptions } from '@/composables/types/theme'
 
 import type { ThemeMode, ThemeVars } from '../types/theme'
 
@@ -22,12 +22,6 @@ export const DEFAULT_THEME_VARS: ThemeVars = {
   darkColor3: '#a0a0a0',
   colorTheme: themeColorOptions[0].primary,
 }
-
-/** 导航栏颜色映射 */
-const NAVIGATION_BAR_COLORS = {
-  light: { frontColor: '#000000', backgroundColor: '#ffffff' },
-  dark: { frontColor: '#ffffff', backgroundColor: '#000000' },
-} as const
 
 /**
  * 获取系统主题
@@ -64,6 +58,10 @@ export function setNavigationBarColor(mode: ThemeMode): void {
     uni.setNavigationBarColor({
       frontColor: colors.frontColor,
       backgroundColor: colors.backgroundColor,
+      animation: {
+        duration: 500,
+        timingFunc: 'easeInOut',
+      },
     })
   }
   catch (error) {

@@ -44,3 +44,19 @@ export const themeColorOptions: ThemeColorOption[] = [
   { name: '紫罗兰', value: 'purple', primary: '#8A2BE2' },
   { name: '朱砂红', value: 'red', primary: '#FF4757' },
 ]
+
+/**
+ * 导航栏颜色配置（工业移动端风格）
+ * 浅色模式：浅灰白背景（减少刺眼，更具工业质感），深色文字
+ * 深色模式：深炭灰背景（工业质感），纯白文字
+ */
+export const NAVIGATION_BAR_COLORS = {
+  light: {
+    frontColor: '#000000',
+    backgroundColor: '#F5F5F5',
+  },
+  dark: {
+    frontColor: '#ffffff',
+    backgroundColor: '#1A1A1A',
+  },
+} as const
