@@ -83,12 +83,12 @@ function handleCardClick(type: string) {
 </script>
 
 <template>
-  <view class="bg-bg-secondary min-h-screen grid-bg dark:bg-industrial-bg">
+  <view class="min-h-screen bg-[#F8FAFC] grid-bg dark:bg-oled-black">
     <!-- 顶部状态条 -->
     <view class="sticky top-0 z-50 flex-between border-b border-gray-100 glass-effect px-5 py-3 dark:border-industrial-border/30">
       <view class="flex items-center gap-2">
         <view class="status-dot-glow bg-industrial-green" />
-        <text class="tech-label text-[10px] text-gray-500 dark:text-industrial-cyan">
+        <text class="tech-label text-gray-500 dark:text-industrial-cyan">
           系统运行中
         </text>
       </view>
@@ -101,7 +101,17 @@ function handleCardClick(type: string) {
     </view>
 
     <scroll-view scroll-y class="pb-10">
-      <!-- 核心指标 -->
+      <!-- 紧急告警通知栏 -->
+      <wd-notice-bar
+        v-if="emergencyAlarm"
+        :text="`紧急告警：${emergencyAlarm.location} - ${emergencyAlarm.message}`"
+        prefix="i-carbon-warning-alt"
+        type="danger"
+        custom-class="mx-4 mt-4 rd-8px"
+        scrollable
+      />
+
+      <!-- 核心指标网格 -->
       <view class="grid grid-cols-2 gap-3 p-4">
         <view
           v-for="metric in keyMetrics"
@@ -129,59 +139,16 @@ function handleCardClick(type: string) {
         </view>
       </view>
 
-      <!-- 紧急告警 -->
-      <view
-        class="tech-card mx-4 mb-4 overflow-hidden border-l-3 border-l-industrial-red from-industrial-red/5 to-transparent bg-gradient-to-r"
-        @click="handleCardClick('紧急告警')"
-      >
-        <view class="animate-scan pointer-events-none absolute inset-0 opacity-20 scan-line" />
-
-        <view class="relative z-1 flex-between">
-          <view class="flex items-center gap-2">
-            <view class="i-carbon-warning-alt animate-pulse text-lg text-industrial-red" />
-            <text class="text-xs text-industrial-red font-bold tracking-tighter uppercase">
-              紧急告警
-            </text>
-          </view>
-          <view class="flex items-center gap-1 border border-industrial-red/20 rounded bg-industrial-red/10 px-1.5 py-0.5">
-            <text class="text-[9px] text-industrial-red tech-num">
-              一级
-            </text>
-          </view>
-        </view>
-
-        <view class="relative z-1 mt-3">
-          <view class="text-lg text-gray-800 font-800 leading-tight tracking-tight dark:text-gray-100">
-            {{ emergencyAlarm.message }}
-          </view>
-          <view class="mt-2 flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
-            <view class="i-carbon-location text-sm" />
-            <text class="font-medium">
-              {{ emergencyAlarm.location }}
-            </text>
-            <text class="ml-auto tech-num opacity-60">
-              {{ emergencyAlarm.time }}
-            </text>
-          </view>
-        </view>
-
-        <view class="relative z-1 mt-4 flex gap-3">
-          <wd-button type="error" size="small" block custom-class="rounded-md! font-bold uppercase tracking-widest text-[10px] h-8" @click.stop="handleCardClick('立即处理')">
-            确认并执行处理
-          </wd-button>
-        </view>
-      </view>
-
-      <!-- 环境监控 -->
-      <view class="grid grid-cols-2 mx-4 gap-3">
+      <!-- 环境监控 (使用 card-panel 快捷方式) -->
+      <view class="grid grid-cols-2 mx-4 mt-4 gap-3">
         <view
           v-for="item in envData"
           :key="item.label"
-          class="tech-card tech-corner !p-3"
+          class="card-panel !mb-0 active:border-industrial-blue/50 !p-3"
           @click="handleCardClick(item.label)"
         >
           <view class="mb-2 flex-between">
-            <text class="tech-label">
+            <text class="tech-label text-gray-500 dark:text-gray-400">
               {{ item.label }}
             </text>
             <view class="status-dot" :class="item.percentage > 80 ? 'bg-industrial-orange' : 'bg-industrial-cyan'" />
@@ -189,7 +156,7 @@ function handleCardClick(type: string) {
           <view :class="`text-xl tech-num ${item.color}`">
             {{ item.value }}
           </view>
-          <view class="relative mt-3 h-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+          <view class="relative mt-3 h-1 overflow-hidden rounded-full bg-gray-100 dark:bg-industrial-bg">
             <view
               class="absolute inset-y-0 left-0 bg-industrial-blue shadow-[0_0_8px_rgba(0,102,255,0.5)] transition-all duration-1000"
               :style="{ width: `${item.percentage}%` }"
@@ -199,27 +166,27 @@ function handleCardClick(type: string) {
       </view>
 
       <!-- 趋势分析 -->
-      <view class="group tech-card tech-corner mx-4 mt-4" @click="handleCardClick('趋势图')">
+      <view class="tech-card tech-corner mx-4 mt-4" @click="handleCardClick('趋势图')">
         <view class="mb-4 flex-between">
           <view class="flex items-center gap-2">
             <view class="i-carbon-analytics text-lg text-industrial-cyan" />
-            <text class="text-sm font-bold tracking-widest uppercase dark:text-gray-200">
+            <text class="text-sm text-gray-800 font-bold tracking-widest uppercase dark:text-gray-200">
               实时数据分析
             </text>
           </view>
           <view class="flex items-center gap-1.5">
             <view class="status-dot animate-pulse bg-industrial-cyan" />
-            <text class="text-[9px] tech-num uppercase opacity-50">
+            <text class="text-[9px] text-gray-500 tech-num uppercase opacity-50 dark:text-gray-400">
               数据记录中...
             </text>
           </view>
         </view>
 
-        <view class="relative h-40 flex-center flex-col overflow-hidden border border-gray-100/50 rounded bg-gray-50/50 dark:border-industrial-border/20 dark:bg-industrial-bg/40">
+        <view class="relative h-40 flex-center flex-col overflow-hidden border border-gray-100 rounded bg-gray-50 dark:border-industrial-border/20 dark:bg-industrial-bg/40">
           <view class="absolute inset-0 grid-bg opacity-20" />
           <view class="animate-scan pointer-events-none absolute inset-0 opacity-10 scan-line" />
 
-          <view class="i-carbon-chart-line relative z-1 text-6xl text-gray-200 dark:text-industrial-border/50" />
+          <view class="i-carbon-chart-line relative z-1 text-gray-200 dark:text-industrial-border/50" />
           <text class="relative z-1 mt-2 tech-label text-gray-400 dark:text-gray-500">
             遥测数据可视化
           </text>

@@ -26,7 +26,10 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      industrial: {
+      'oled-black': '#000000',
+      'oled-surface': '#0A0A0A',
+      'alarm-red': '#FF5252',
+      'industrial': {
         'blue': '#0066FF',
         'cyan': '#00E5FF',
         'green': '#00E676',
@@ -44,6 +47,10 @@ export default defineConfig({
     'flex-center': 'flex items-center justify-center',
     'flex-between': 'flex items-center justify-between',
     'abs-center': 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+
+    // 工业监控面板
+    'card-panel': 'bg-white dark:bg-#121212 rd-12px p-16px mb-12px shadow-sm border border-gray-100 dark:border-industrial-border/30',
+    'data-value': 'font-fira-code text-24px font-bold text-gray-900 dark:text-#F8FAFC tracking-tighter',
 
     // 科技感卡片
     'tech-card': 'relative rounded-lg bg-white dark:bg-industrial-card border border-gray-100 dark:border-industrial-border shadow-sm p-4 transition-all overflow-hidden',
