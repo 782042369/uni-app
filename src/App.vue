@@ -1,5 +1,7 @@
 <script setup lang="ts">
-onLaunch(() => {})
+onLaunch(() => {
+  uni.hideTabBar()
+})
 </script>
 
 <style lang="scss">
