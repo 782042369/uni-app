@@ -130,15 +130,20 @@ const menuItems = [
       <view class="relative z-10 grid grid-cols-3 mx-5 gap-3.5 -mt-10">
         <view
           v-for="stat in [
-            { label: '设备总数', value: 128, color: 'text-industrial-blue' },
-            { label: '今日告警', value: 12, color: 'text-industrial-red' },
-            { label: '运行率', value: '99%', color: 'text-industrial-green' },
-          ]" :key="stat.label" class="tech-card tech-corner flex flex-col items-center glass-effect !p-3.5"
+            { label: '监测设备', value: 128, unit: '台', color: 'text-industrial-blue' },
+            { label: '今日告警', value: 12, unit: '条', color: 'text-industrial-red' },
+            { label: '安全指数', value: '99%', unit: '', color: 'text-industrial-green' },
+          ]" :key="stat.label" class="tech-card tech-corner flex flex-col items-center glass-effect !p-4"
         >
-          <text class="text-lg font-bold tech-num" :class="stat.color">
-            {{ stat.value }}
-          </text>
-          <text class="mt-1 tech-label text-[10px] font-medium opacity-60">
+          <view class="flex items-baseline gap-0.5">
+            <text class="text-xl font-bold tech-num" :class="stat.color">
+              {{ stat.value }}
+            </text>
+            <text v-if="stat.unit" class="text-[9px] font-bold opacity-40">
+              {{ stat.unit }}
+            </text>
+          </view>
+          <text class="mt-1 tech-label !tracking-normal !opacity-50">
             {{ stat.label }}
           </text>
         </view>
@@ -147,49 +152,49 @@ const menuItems = [
       <!-- 界面设置 -->
       <view class="mx-5 mt-8">
         <view class="mb-3 pl-1">
-          <text class="text-[12px] text-gray-400 font-bold tracking-wider">
-            界面偏好
+          <text class="text-[11px] text-gray-400 font-bold tracking-wider">
+            个性化配置
           </text>
         </view>
         <view class="tech-card tech-corner overflow-hidden divide-y divide-gray-100/50 !p-0 dark:divide-industrial-border/10">
-          <view class="group flex items-center justify-between p-4 transition-colors active:bg-gray-50 dark:active:bg-white/5">
-            <view class="flex items-center gap-3.5">
+          <view class="group flex items-center justify-between p-4.5 transition-colors active:bg-gray-50 dark:active:bg-white/5">
+            <view class="flex items-center gap-4">
               <view class="h-10 w-10 flex-center border border-gray-100 rounded-xl bg-gray-50/80 text-industrial-blue dark:border-industrial-border/20 dark:bg-white/5">
                 <view class="i-carbon-asleep h-5 w-5" />
               </view>
-              <text class="text-[14px] text-gray-800 font-semibold dark:text-gray-200">
+              <text class="text-[14px] text-gray-800 font-bold dark:text-gray-200">
                 深色模式
               </text>
             </view>
             <wd-switch v-model="isDark" size="20px" />
           </view>
 
-          <view class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-white/5" @click="setFollowSystem(!followSystem)">
-            <view class="flex items-center gap-3.5">
+          <view class="flex items-center justify-between p-4.5 active:bg-gray-50 dark:active:bg-white/5" @click="setFollowSystem(!followSystem)">
+            <view class="flex items-center gap-4">
               <view class="h-10 w-10 flex-center border border-gray-100 rounded-xl bg-gray-50/80 text-industrial-blue dark:border-industrial-border/20 dark:bg-white/5">
                 <view class="i-carbon-settings-adjust h-5 w-5" />
               </view>
-              <text class="text-[14px] text-gray-800 font-semibold dark:text-gray-200">
+              <text class="text-[14px] text-gray-800 font-bold dark:text-gray-200">
                 跟随系统
               </text>
             </view>
-            <wd-button size="small" plain :type="followSystem ? 'primary' : 'info'" @click.stop="setFollowSystem(!followSystem)">
+            <wd-button size="small" plain :type="followSystem ? 'primary' : 'info'" custom-class="rounded-md! font-bold text-[10px]" @click.stop="setFollowSystem(!followSystem)">
               {{ followSystem ? '已开启' : '已关闭' }}
             </wd-button>
           </view>
 
-          <view class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-white/5" @click="openThemeColorPicker">
-            <view class="flex items-center gap-3.5">
+          <view class="flex items-center justify-between p-4.5 active:bg-gray-50 dark:active:bg-white/5" @click="openThemeColorPicker">
+            <view class="flex items-center gap-4">
               <view class="h-10 w-10 flex-center border border-gray-100 rounded-xl bg-gray-50/80 text-industrial-blue dark:border-industrial-border/20 dark:bg-white/5">
                 <view class="i-carbon-color-palette h-5 w-5" />
               </view>
-              <text class="text-[14px] text-gray-800 font-semibold dark:text-gray-200">
-                主题颜色
+              <text class="text-[14px] text-gray-800 font-bold dark:text-gray-200">
+                主题配色
               </text>
             </view>
             <view class="flex items-center gap-2">
               <view
-                class="h-4 w-4 rounded-full ring-2 ring-offset-2 ring-gray-100 dark:ring-industrial-border/30 dark:ring-offset-industrial-bg"
+                class="h-4 w-4 rounded-full shadow-sm ring-2 ring-offset-2 ring-gray-100 dark:ring-industrial-border/30 dark:ring-offset-industrial-bg"
                 :style="{ backgroundColor: currentThemeColor.primary }"
               />
               <view class="i-carbon-chevron-right text-xs text-gray-300 dark:text-gray-600" />
@@ -201,44 +206,44 @@ const menuItems = [
       <!-- 系统功能菜单 -->
       <view class="mx-5 mt-8">
         <view class="mb-3 pl-1">
-          <text class="text-[12px] text-gray-400 font-bold tracking-wider">
-            通用设置
+          <text class="text-[11px] text-gray-400 font-bold tracking-wider">
+            系统管理
           </text>
         </view>
         <view class="tech-card tech-corner overflow-hidden divide-y divide-gray-100/50 !p-0 dark:divide-industrial-border/10">
           <view
             v-for="item in menuItems"
             :key="item.id"
-            class="group flex items-center justify-between p-4 transition-colors active:bg-gray-50 dark:active:bg-white/5"
+            class="group flex items-center justify-between p-4.5 transition-colors active:bg-gray-50 dark:active:bg-white/5"
             @click="item.action"
           >
-            <view class="flex items-center gap-3.5">
+            <view class="flex items-center gap-4">
               <view class="h-10 w-10 flex-center border border-gray-100 rounded-xl bg-gray-50/80 text-industrial-blue dark:border-industrial-border/20 dark:bg-white/5">
                 <view :class="item.icon" class="h-5 w-5" />
               </view>
               <view class="flex flex-col">
-                <text class="text-[14px] text-gray-900 font-bold tracking-tight dark:text-gray-100">
+                <text class="text-[14px] text-gray-900 font-bold dark:text-gray-100">
                   {{ item.title }}
                 </text>
-                <text class="mt-0.5 text-[11px] text-gray-400 font-medium dark:text-gray-500">
+                <text class="mt-1 text-[11px] text-gray-400 font-medium dark:text-gray-500">
                   {{ item.desc }}
                 </text>
               </view>
             </view>
-            <view class="i-carbon-chevron-right text-lg text-gray-300/60 dark:text-gray-600/60" />
+            <view class="i-carbon-chevron-right text-lg text-gray-300/40 dark:text-gray-600/40" />
           </view>
         </view>
       </view>
 
       <!-- 安全退出 -->
-      <view class="mx-5 mt-10 pb-6">
+      <view class="mx-5 mt-10 pb-10">
         <view
-          class="tech-card tech-corner flex-center gap-2.5 p-4 transition-all active:scale-[0.98] border-red-100! bg-red-50/50! dark:border-red-900/20! active:bg-red-100! dark:bg-red-900/10!"
+          class="tech-card tech-corner flex-center gap-3 p-4.5 transition-all active:scale-[0.98] border-red-100! bg-red-50/30! dark:border-red-900/20! active:bg-red-100! dark:bg-red-900/10!"
           @click="showToast('退出登录')"
         >
           <view class="i-carbon-logout scale-95 text-red-500" />
-          <text class="text-[12px] text-red-500 font-bold tracking-[0.2em] uppercase">
-            安全退出系统
+          <text class="text-[13px] text-red-500 font-bold tracking-widest">
+            退出管理系统
           </text>
         </view>
       </view>

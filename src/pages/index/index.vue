@@ -14,24 +14,28 @@ const keyMetrics = [
   {
     label: '在线设备',
     value: '128',
+    unit: '台',
     color: 'text-industrial-blue',
     icon: 'i-carbon-machine-learning',
   },
   {
-    label: '正常状态',
+    label: '运行正常',
     value: '85',
+    unit: '台',
     color: 'text-industrial-green',
     icon: 'i-carbon-checkmark-outline',
   },
   {
-    label: '告警数量',
+    label: '当前告警',
     value: '12',
+    unit: '条',
     color: 'text-industrial-orange',
     icon: 'i-carbon-notification',
   },
   {
-    label: '故障设备',
-    value: '3',
+    label: '故障维修',
+    value: '03',
+    unit: '台',
     color: 'text-industrial-red',
     icon: 'i-carbon-error',
   },
@@ -125,13 +129,13 @@ function handleCardClick(type: string) {
               <text :class="`text-3xl tech-num ${metric.color}`">
                 {{ metric.value }}
               </text>
-              <text class="text-[10px] font-bold uppercase opacity-40">
-                单位
+              <text class="text-[10px] font-bold opacity-40">
+                {{ metric.unit }}
               </text>
             </view>
             <view class="mt-2 flex items-center gap-1.5">
               <view class="h-[1px] w-3 bg-current opacity-30" :class="metric.color" />
-              <text class="tech-label text-gray-400 dark:text-gray-500">
+              <text class="tech-label text-gray-400 dark:text-gray-500 !tracking-normal">
                 {{ metric.label }}
               </text>
             </view>
@@ -144,21 +148,21 @@ function handleCardClick(type: string) {
         <view
           v-for="item in envData"
           :key="item.label"
-          class="card-panel !mb-0 active:border-industrial-blue/50 !p-3"
+          class="tech-card tech-corner !mb-0 active:border-industrial-blue/50 !p-3.5"
           @click="handleCardClick(item.label)"
         >
           <view class="mb-2 flex-between">
-            <text class="tech-label text-gray-500 dark:text-gray-400">
-              {{ item.label }}
+            <text class="tech-label text-gray-500 dark:text-gray-400 !tracking-normal">
+              {{ item.label }}监测
             </text>
             <view class="status-dot" :class="item.percentage > 80 ? 'bg-industrial-orange' : 'bg-industrial-cyan'" />
           </view>
-          <view :class="`text-xl tech-num ${item.color}`">
+          <view :class="`text-xl tech-num ${item.color} tracking-tighter`">
             {{ item.value }}
           </view>
-          <view class="relative mt-3 h-1 overflow-hidden rounded-full bg-gray-100 dark:bg-industrial-bg">
+          <view class="relative mt-3 h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-industrial-bg">
             <view
-              class="absolute inset-y-0 left-0 bg-industrial-blue shadow-[0_0_8px_rgba(0,102,255,0.5)] transition-all duration-1000"
+              class="absolute inset-y-0 left-0 bg-industrial-blue shadow-[0_0_12px_rgba(0,102,255,0.4)] transition-all duration-1000"
               :style="{ width: `${item.percentage}%` }"
             />
           </view>
@@ -170,25 +174,25 @@ function handleCardClick(type: string) {
         <view class="mb-4 flex-between">
           <view class="flex items-center gap-2">
             <view class="i-carbon-analytics text-lg text-industrial-cyan" />
-            <text class="text-sm text-gray-800 font-bold tracking-widest uppercase dark:text-gray-200">
+            <text class="text-sm text-gray-800 font-bold tracking-widest dark:text-gray-200">
               实时数据分析
             </text>
           </view>
           <view class="flex items-center gap-1.5">
-            <view class="status-dot animate-pulse bg-industrial-cyan" />
-            <text class="text-[9px] text-gray-500 tech-num uppercase opacity-50 dark:text-gray-400">
-              数据记录中...
+            <view class="status-dot-glow bg-industrial-cyan" />
+            <text class="text-[9px] text-gray-500 tech-num opacity-50 dark:text-gray-400">
+              正在同步数据...
             </text>
           </view>
         </view>
 
-        <view class="relative h-40 flex-center flex-col overflow-hidden border border-gray-100 rounded bg-gray-50 dark:border-industrial-border/20 dark:bg-industrial-bg/40">
+        <view class="relative h-44 flex-center flex-col overflow-hidden border border-gray-100 rounded bg-gray-50 dark:border-industrial-border/20 dark:bg-industrial-bg/40">
           <view class="absolute inset-0 grid-bg opacity-20" />
           <view class="animate-scan pointer-events-none absolute inset-0 opacity-10 scan-line" />
 
-          <view class="i-carbon-chart-line relative z-1 text-gray-200 dark:text-industrial-border/50" />
-          <text class="relative z-1 mt-2 tech-label text-gray-400 dark:text-gray-500">
-            遥测数据可视化
+          <view class="i-carbon-chart-line relative z-1 text-4xl text-gray-200 dark:text-industrial-border/30" />
+          <text class="relative z-1 mt-3 tech-label text-gray-400 dark:text-gray-500 !tracking-normal">
+            环境参数波动趋势图
           </text>
         </view>
       </view>

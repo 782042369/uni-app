@@ -109,25 +109,25 @@ function handleAreaChange(e: any) {
       </view>
 
       <!-- 实时监控状态简报 -->
-      <view class="tech-card tech-corner mx-4 mt-4 border-l-3 border-l-industrial-green !py-3">
+      <view class="tech-card tech-corner mx-4 mt-4 border-l-3 border-l-industrial-green !py-4">
         <view class="flex-between">
           <view class="flex flex-col">
-            <text class="text-sm font-800 tracking-tight dark:text-gray-100">
+            <text class="text-sm font-bold tracking-tight dark:text-gray-100">
               1号矿井 - 东区采掘面
             </text>
-            <view class="mt-1 flex items-center gap-2">
-              <text class="tech-label opacity-40">
-                运行时间:
+            <view class="mt-1.5 flex items-center gap-2">
+              <text class="tech-label opacity-40 !tracking-normal">
+                累计运行:
               </text>
-              <text class="text-[10px] tech-num dark:text-industrial-cyan">
+              <text class="text-[10px] text-industrial-blue tech-num dark:text-industrial-cyan">
                 1,420时 32分
               </text>
             </view>
           </view>
-          <view class="flex items-center gap-2 border border-industrial-green/20 rounded-full bg-industrial-green/10 px-3 py-1">
+          <view class="flex items-center gap-2 border border-industrial-green/20 rounded-lg bg-industrial-green/10 px-3 py-1.5">
             <view class="scale-75 status-dot-glow bg-industrial-green" />
-            <text class="text-[9px] text-industrial-green font-900 tracking-tighter uppercase">
-              安全
+            <text class="text-[10px] text-industrial-green font-bold">
+              安全运行中
             </text>
           </view>
         </view>
@@ -138,11 +138,11 @@ function handleAreaChange(e: any) {
         <view
           v-for="item in monitorData"
           :key="item.label"
-          class="group tech-card tech-corner h-28 flex flex-col justify-between transition-colors active:bg-industrial-blue/5 !p-3"
+          class="group tech-card tech-corner h-30 flex flex-col justify-between transition-all active:bg-industrial-blue/5 !p-4"
         >
           <view class="flex-between">
-            <text class="tech-label">
-              {{ item.label }}
+            <text class="tech-label !tracking-normal">
+              {{ item.label }}监测
             </text>
             <view :class="item.trendUp ? 'text-industrial-red' : 'text-industrial-green'" class="flex items-center gap-0.5">
               <view :class="item.trendUp ? 'i-carbon-arrow-up' : 'i-carbon-arrow-down'" class="text-[10px]" />
@@ -152,14 +152,14 @@ function handleAreaChange(e: any) {
             </view>
           </view>
 
-          <view :class="`text-2xl tech-num ${item.color} tracking-tighter`">
+          <view :class="`text-2xl tech-num ${item.color} tracking-tighter my-1`">
             {{ item.value }}
           </view>
 
-          <view class="mt-2 flex-between border-t border-gray-100/50 pt-2 dark:border-industrial-border/20">
-            <view class="flex items-center gap-1">
-              <view class="status-dot scale-75 bg-industrial-green" />
-              <text class="tech-label text-[9px] opacity-40">
+          <view class="flex-between border-t border-gray-100/50 pt-2.5 dark:border-industrial-border/20">
+            <view class="flex items-center gap-1.5">
+              <view class="status-dot scale-75 bg-industrial-green shadow-[0_0_8px_rgba(0,230,118,0.5)]" />
+              <text class="tech-label text-[9px] opacity-50 !tracking-normal">
                 状态正常
               </text>
             </view>
@@ -170,28 +170,28 @@ function handleAreaChange(e: any) {
 
       <!-- 视频监控 -->
       <view class="tech-card tech-corner mx-4 mt-4 overflow-hidden border-industrial-blue/20 !p-0">
-        <view class="flex-between border-b border-gray-100/50 glass-effect px-4 py-3 dark:border-industrial-border/30">
+        <view class="flex-between border-b border-gray-100/50 glass-effect px-4 py-3.5 dark:border-industrial-border/30">
           <view class="flex items-center gap-2">
             <view class="i-carbon-video animate-pulse text-industrial-red" />
-            <text class="text-xs font-bold tracking-widest uppercase dark:text-gray-200">
-              实时遥测视频
+            <text class="text-xs font-bold dark:text-gray-200">
+              实时监控视频流
             </text>
           </view>
           <view class="flex items-center gap-1.5 rounded bg-industrial-red/10 px-2 py-0.5">
-            <view class="h-1.5 w-1.5 rounded-full bg-industrial-red shadow-[0_0_4px_rgba(255,82,82,0.8)]" />
-            <text class="text-[8px] text-industrial-red font-900 tracking-tighter uppercase">
+            <view class="h-1.5 w-1.5 rounded-full bg-industrial-red shadow-[0_0_6px_rgba(255,82,82,0.8)]" />
+            <text class="text-[9px] text-industrial-red font-bold">
               正在录制
             </text>
           </view>
         </view>
 
-        <view class="group relative h-52 flex-center bg-black">
+        <view class="group relative h-56 flex-center bg-black">
           <!-- 视频信息图层 -->
-          <view class="absolute left-3 top-3 z-10 space-y-1">
-            <view class="rounded glass-effect px-1.5 py-0.5 text-[8px] text-white/60 tracking-widest font-mono uppercase !bg-black/20">
-              1号摄像头 / A区
+          <view class="absolute left-4 top-4 z-10 space-y-2">
+            <view class="border border-white/10 rounded glass-effect px-2 py-1 text-[9px] text-white/80 font-mono !bg-black/30">
+              终端编号: CAM-01-A
             </view>
-            <view class="text-[8px] text-industrial-cyan/60 font-mono">
+            <view class="text-[9px] text-industrial-cyan/70 tracking-wider font-mono">
               北纬 39.0243°, 东经 117.2134°
             </view>
           </view>

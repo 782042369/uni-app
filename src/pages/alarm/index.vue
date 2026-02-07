@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import type { AlarmFilter, AlarmItem } from '@/types'
 
@@ -8,12 +8,14 @@ definePage({
   layout: 'tabbar',
   style: {
     navigationBarTitleText: '告警中心',
+    disableScroll: true,
   },
 })
 
 // Tab 切换
 const filterTabs: AlarmFilter[] = ['全部', '待处理', '已处理', '已忽略']
 const currentFilter = ref<AlarmFilter>('全部')
+const currentIndex = computed(() => filterTabs.indexOf(currentFilter.value))
 
 function handleFilterChange(filter: AlarmFilter) {
   currentFilter.value = filter
@@ -94,13 +96,16 @@ function handleAlarmAction(_alarm: AlarmItem) {
 </script>
 
 <template>
-  <view class="bg-bg-secondary min-h-screen grid-bg dark:bg-industrial-bg">
+  <view
+    class="bg-bg-secondary flex flex-col overflow-hidden grid-bg dark:bg-industrial-bg"
+    style="height: calc(100vh - var(--window-top, 0px) - var(--wot-tabbar-height, 50px) - env(safe-area-inset-bottom));"
+  >
     <!-- Tab 切换：工业风边框 -->
-    <view class="sticky top-0 z-50 h-12 flex border-b border-gray-100 glass-effect dark:border-industrial-border/30">
+    <view class="relative h-12 flex flex-shrink-0 border-b border-gray-100 glass-effect dark:border-industrial-border/30">
       <view
         v-for="tab in filterTabs"
         :key="tab"
-        class="relative flex flex-1 items-center justify-center transition-all duration-300"
+        class="relative z-10 flex flex-1 items-center justify-center transition-all duration-300"
         @click="handleFilterChange(tab)"
       >
         <text
@@ -109,51 +114,58 @@ function handleAlarmAction(_alarm: AlarmItem) {
         >
           {{ tab }}
         </text>
-        <view
-          v-if="currentFilter === tab"
-          class="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-industrial-blue shadow-[0_-2px_6px_rgba(0,229,255,0.5)] dark:bg-industrial-cyan"
-        />
+      </view>
+      <!-- 滑动指示器 -->
+      <view
+        class="absolute bottom-0 h-0.5 transition-transform duration-300 ease-out"
+        :style="{
+          width: `${100 / filterTabs.length}%`,
+          transform: `translateX(${currentIndex * 100}%)`,
+        }"
+      >
+        <view class="mx-auto h-full w-1/2 bg-industrial-blue shadow-[0_-2px_6px_rgba(0,229,255,0.5)] dark:bg-industrial-cyan" />
       </view>
     </view>
 
-    <scroll-view class="flex-1" scroll-y>
+    <!-- 内容滚动区域 -->
+    <scroll-view class="min-h-0 flex-1" scroll-y :show-scrollbar="false">
       <view class="flex flex-col gap-4 px-4 py-4 pb-10">
         <!-- 统计概览：数据化仪表盘 -->
         <view class="mb-1 flex gap-3">
           <view
             v-for="(stat, idx) in [
-              { label: '告警总数', count: 42, color: 'text-gray-400' },
-              { label: '紧急', count: '03', color: 'text-industrial-red' },
-              { label: '警告', count: 12, color: 'text-industrial-orange' },
-            ]" :key="idx" class="tech-card tech-corner flex flex-1 flex-col items-center !p-3"
+              { label: '告警总数', count: 42, color: 'text-gray-500' },
+              { label: '紧急告警', count: '03', color: 'text-industrial-red' },
+              { label: '警告提醒', count: 12, color: 'text-industrial-orange' },
+            ]" :key="idx" class="tech-card tech-corner flex flex-1 flex-col items-center !p-3.5"
           >
-            <text class="tech-label opacity-40">
+            <text class="mb-1 tech-label opacity-50 !tracking-normal">
               {{ stat.label }}
             </text>
-            <text class="mt-1 text-xl tech-num" :class="stat.color">
+            <text class="text-2xl tech-num" :class="stat.color">
               {{ stat.count }}
             </text>
           </view>
         </view>
 
-        <!-- 告警卡片：动态视觉强化 -->
+        <!-- 告警卡片 -->
         <view
           v-for="alarm in alarmList"
           :key="alarm.id"
-          class="group tech-card tech-corner overflow-hidden active:scale-[0.98] !p-0"
+          class="group tech-card tech-corner overflow-hidden active:scale-[0.99] !p-0"
           :class="{
-            'border-l-3 border-l-industrial-red shadow-[inset_10px_0_20px_-10px_rgba(255,82,82,0.1)]': alarm.level === 'emergency',
-            'border-l-3 border-l-industrial-orange': alarm.level === 'warning',
-            'border-l-3 border-l-industrial-blue': alarm.level === 'info',
+            'border-l-4 border-l-industrial-red shadow-[inset_12px_0_24px_-12px_rgba(255,82,82,0.15)]': alarm.level === 'emergency',
+            'border-l-4 border-l-industrial-orange': alarm.level === 'warning',
+            'border-l-4 border-l-industrial-blue': alarm.level === 'info',
           }"
           @click="handleAlarmDetail(alarm)"
         >
           <!-- 扫光动画（仅紧急告警） -->
-          <view v-if="alarm.level === 'emergency'" class="animate-scan pointer-events-none absolute inset-0 opacity-10 scan-line" />
+          <view v-if="alarm.level === 'emergency'" class="animate-scan pointer-events-none absolute inset-0 opacity-15 scan-line" />
 
           <!-- 卡片头部 -->
-          <view class="flex-between border-b border-gray-100/50 bg-gray-50/30 px-4 py-2.5 dark:border-industrial-border/20 dark:bg-white/5">
-            <view class="flex items-center gap-2">
+          <view class="flex-between border-b border-gray-100/50 bg-gray-50/50 px-4 py-3 dark:border-industrial-border/20 dark:bg-white/5">
+            <view class="flex items-center gap-2.5">
               <view
                 :class="{
                   'i-carbon-warning-alt text-industrial-red animate-pulse': alarm.level === 'emergency',
@@ -163,28 +175,31 @@ function handleAlarmAction(_alarm: AlarmItem) {
                 class="text-sm"
               />
               <text
-                class="text-[9px] font-900 tracking-[0.2em] uppercase" :class="{
+                class="text-[10px] font-bold tracking-wider" :class="{
                   'text-industrial-red': alarm.level === 'emergency',
                   'text-industrial-orange': alarm.level === 'warning',
                   'text-industrial-blue': alarm.level === 'info',
                 }"
               >
-                {{ alarm.levelText }} 严重程度
+                {{ alarm.levelText }}级别告警
               </text>
             </view>
-            <text class="text-[10px] tech-num opacity-40">
-              {{ alarm.time }}
-            </text>
+            <view class="flex items-center gap-1.5 opacity-40">
+              <view class="i-carbon-time text-[10px]" />
+              <text class="text-[10px] tech-num">
+                {{ alarm.time }}
+              </text>
+            </view>
           </view>
 
           <!-- 卡片内容 -->
           <view class="relative z-1 p-4">
-            <view class="mb-3 flex items-start justify-between">
-              <text class="text-base text-gray-800 font-800 leading-tight tracking-tight dark:text-gray-100">
+            <view class="mb-3.5 flex items-start justify-between">
+              <text class="text-base text-gray-900 font-bold leading-snug dark:text-gray-100">
                 {{ alarm.title }}
               </text>
               <view
-                class="border rounded px-1.5 py-0.5 text-[8px] font-900 tracking-tighter uppercase"
+                class="border rounded-md px-2 py-0.5 text-[9px] font-bold tracking-wider"
                 :class="alarm.status === 'resolved'
                   ? 'bg-industrial-green/5 text-industrial-green border-industrial-green/20'
                   : 'bg-industrial-red/5 text-industrial-red border-industrial-red/20'"
@@ -193,46 +208,46 @@ function handleAlarmAction(_alarm: AlarmItem) {
               </view>
             </view>
 
-            <view class="mb-4 flex items-center gap-1.5 text-[11px] text-gray-500 dark:text-gray-400">
-              <view class="i-carbon-location opacity-50" />
-              <text class="truncate font-medium">
+            <view class="mb-4 flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+              <view class="i-carbon-location opacity-60" />
+              <text class="truncate">
                 {{ alarm.location }}
               </text>
             </view>
 
-            <!-- 数据监测值：工业对比风格 -->
+            <!-- 数据监测值 -->
             <view
               v-if="alarm.status !== 'resolved'"
-              class="flex gap-0 overflow-hidden border border-gray-100 rounded dark:border-industrial-border/20"
+              class="flex gap-0 overflow-hidden border border-gray-100 rounded-lg dark:border-industrial-border/20"
             >
-              <view class="flex flex-1 flex-col items-center border-r border-gray-100 bg-gray-50 p-2 dark:border-industrial-border/20 dark:bg-white/5">
-                <text class="scale-75 tech-label !opacity-30">
-                  当前值
+              <view class="flex flex-1 flex-col items-center border-r border-gray-100 bg-gray-50/80 p-2.5 dark:border-industrial-border/20 dark:bg-white/5">
+                <text class="mb-0.5 tech-label !tracking-normal !opacity-30">
+                  当前监测值
                 </text>
-                <text class="text-lg tech-num" :class="alarm.level === 'emergency' ? 'text-industrial-red' : 'text-gray-800 dark:text-gray-100'">
+                <text class="text-xl tech-num" :class="alarm.level === 'emergency' ? 'text-industrial-red' : 'text-gray-900 dark:text-gray-100'">
                   {{ alarm.currentValue }}
                 </text>
               </view>
-              <view class="flex flex-1 flex-col items-center bg-gray-50/50 p-2 dark:bg-white/[0.02]">
-                <text class="scale-75 tech-label !opacity-30">
-                  阈值
+              <view class="flex flex-1 flex-col items-center bg-gray-50/40 p-2.5 dark:bg-white/[0.02]">
+                <text class="mb-0.5 tech-label !tracking-normal !opacity-30">
+                  设定阈值
                 </text>
-                <text class="text-lg text-gray-400 tech-num dark:text-gray-500">
+                <text class="text-xl text-gray-400 tech-num dark:text-gray-500">
                   {{ alarm.limitValue }}
                 </text>
               </view>
             </view>
 
             <!-- 操作按钮组 -->
-            <view class="mt-5 flex gap-2.5">
-              <wd-button plain type="info" size="small" custom-class="rounded-md! font-bold uppercase tracking-widest text-[10px] flex-1 border-gray-200! dark:border-industrial-border!">
-                详情
+            <view class="mt-5 flex gap-3">
+              <wd-button plain type="info" size="small" custom-class="rounded-lg! font-bold tracking-widest text-[11px] flex-1 border-gray-200! dark:border-industrial-border!">
+                查阅详情
               </wd-button>
               <wd-button
                 v-if="alarm.status !== 'resolved'"
                 size="small"
                 :type="alarm.level === 'emergency' ? 'error' : (alarm.level === 'warning' ? 'warning' : 'primary')"
-                custom-class="rounded-md! font-bold uppercase tracking-widest text-[10px] flex-[2] shadow-sm"
+                custom-class="rounded-lg! font-bold tracking-widest text-[11px] flex-[2] shadow-sm shadow-current/10"
                 @click.stop="handleAlarmAction(alarm)"
               >
                 {{ alarm.status === 'processing' ? '继续处理' : '立即处理' }}

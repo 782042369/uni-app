@@ -50,7 +50,8 @@
       "name": "alarm",
       "layout": "tabbar",
       "style": {
-        "navigationBarTitleText": "告警中心"
+        "navigationBarTitleText": "告警中心",
+        "disableScroll": true
       }
     },
     {
