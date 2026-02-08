@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuItem, ThemeColorOption, UserInfo } from '@/types'
+import type { MenuItem, UserInfo } from '@/types'
 
 definePage({
   name: 'about',
@@ -36,10 +36,6 @@ const isDark = computed({
   get: () => theme.value === 'dark',
   set: () => toggleTheme(),
 })
-
-function handleThemeColorSelect(option: ThemeColorOption) {
-  selectThemeColor(option)
-}
 
 const menuItems: MenuItem[] = [
   {
@@ -261,7 +257,7 @@ const menuItems: MenuItem[] = [
           v-for="option in themeColorOptions"
           :key="option.value"
           class="flex cursor-pointer items-center justify-between border-b border-gray-100 py-4 last:border-b-0 dark:border-industrial-border/10"
-          @click="handleThemeColorSelect(option)"
+          @click="selectThemeColor(option)"
         >
           <view class="flex items-center gap-4">
             <view

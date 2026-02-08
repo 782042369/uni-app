@@ -13,7 +13,7 @@ definePage({
 })
 
 const { success } = useGlobalToast()
-const { show: showMessage } = useGlobalMessage()
+const { confirm } = useGlobalMessage()
 
 const filterTabs: AlarmFilter[] = ['全部', '待处理', '已处理', '已忽略']
 const currentFilter = ref<AlarmFilter>('全部')
@@ -65,12 +65,9 @@ const alarmList = ref<AlarmItem[]>([
 ])
 
 function handleAlarmDetail(alarm: AlarmItem) {
-  showMessage({
+  confirm({
     title: alarm.title,
-    msg: `位置：${alarm.location}\n时间：${alarm.time}\n当前值：${alarm.currentValue}\n限值：${alarm.limitValue}`,
-    showCancel: true,
-    confirmText: '处理',
-    cancelText: '关闭',
+    msg: `位置：${alarm.location}<br/>时间：${alarm.time}\n当前值：${alarm.currentValue}\n限值：${alarm.limitValue}`,
   })
 }
 
