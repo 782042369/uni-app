@@ -3,7 +3,7 @@ import type { ToastOptions } from 'wot-design-uni/components/wd-toast/types'
 import { defineStore } from 'pinia'
 
 /**
- * 全局 Toast 状态管理
+ * 全局 Toast 状态管理 (类型安全，无断言)
  */
 export const useGlobalToast = defineStore('global-toast', () => {
   const defaultOptions: ToastOptions = {
@@ -14,71 +14,45 @@ export const useGlobalToast = defineStore('global-toast', () => {
   const toastOptions = ref<ToastOptions>({ ...defaultOptions })
   const currentPage = ref('')
 
-  /**
-   * 标准化选项参数
-   */
   function normalizeOptions(option: ToastOptions | string): ToastOptions {
     return typeof option === 'string' ? { msg: option } : option
   }
 
-  /**
-   * 显示 Toast 提示
-   */
+  function mergeOptions(base: ToastOptions, override: ToastOptions): ToastOptions {
+    return {
+      ...base,
+      ...override,
+      msg: override.msg || base.msg,
+      position: override.position || base.position || 'middle',
+    }
+  }
+
   function show(option: ToastOptions | string) {
     currentPage.value = getCurrentPath()
     const options = normalizeOptions(option)
-
-    toastOptions.value = CommonUtil.deepMerge(
-      { ...defaultOptions },
-      {
-        ...options,
-        show: true,
-        position: options.position || 'middle',
-      },
-    ) as ToastOptions
+    toastOptions.value = mergeOptions(defaultOptions, { ...options, show: true })
   }
 
-  /**
-   * 显示成功提示
-   */
   function success(option: ToastOptions | string) {
-    show(CommonUtil.deepMerge({
-      iconName: 'success',
-      duration: 1500,
-    }, normalizeOptions(option)) as ToastOptions)
+    const options = normalizeOptions(option)
+    show(mergeOptions({ iconName: 'success' as const, duration: 1500 }, options))
   }
 
-  /**
-   * 显示错误提示
-   */
   function error(option: ToastOptions | string) {
-    show(CommonUtil.deepMerge({
-      iconName: 'error',
-      direction: 'vertical',
-    }, normalizeOptions(option)) as ToastOptions)
+    const options = normalizeOptions(option)
+    show(mergeOptions({ iconName: 'error' as const, direction: 'vertical' as const }, options))
   }
 
-  /**
-   * 显示信息提示
-   */
   function info(option: ToastOptions | string) {
-    show(CommonUtil.deepMerge({
-      iconName: 'info',
-    }, normalizeOptions(option)) as ToastOptions)
+    const options = normalizeOptions(option)
+    show(mergeOptions({ iconName: 'info' as const }, options))
   }
 
-  /**
-   * 显示警告提示
-   */
   function warning(option: ToastOptions | string) {
-    show(CommonUtil.deepMerge({
-      iconName: 'warning',
-    }, normalizeOptions(option)) as ToastOptions)
+    const options = normalizeOptions(option)
+    show(mergeOptions({ iconName: 'warning' as const }, options))
   }
 
-  /**
-   * 关闭 Toast
-   */
   function close() {
     toastOptions.value = { ...defaultOptions }
     currentPage.value = ''
