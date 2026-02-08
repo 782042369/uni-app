@@ -41,6 +41,28 @@ export default defineConfig({
         'border-strong': 'rgba(77, 127, 255, 0.5)',
       },
     },
+    animation: {
+      keyframes: {
+        'scan': '{ from { transform: translateY(-100%); } to { transform: translateY(100%); } }',
+        'flow-fast': '{ from { background-position: 0 0; } to { background-position: 100px 0; } }',
+        'flow-slow': '{ from { background-position: 0 0; } to { background-position: 60px 0; } }',
+      },
+      durations: {
+        'scan': '3s',
+        'flow-fast': '1.5s',
+        'flow-slow': '4s',
+      },
+      counts: {
+        'scan': 'infinite',
+        'flow-fast': 'infinite',
+        'flow-slow': 'infinite',
+      },
+      timingFns: {
+        'scan': 'linear',
+        'flow-fast': 'linear',
+        'flow-slow': 'linear',
+      },
+    },
   },
   shortcuts: {
     // 基础布局
@@ -68,6 +90,17 @@ export default defineConfig({
     'grid-bg': 'bg-[length:20px_20px] bg-[linear-gradient(to_right,rgba(128,128,128,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.05)_1px,transparent_1px)]',
     'glass-effect': 'backdrop-blur-lg bg-white/70 dark:bg-industrial-card/90',
 
+    // 粒子进度条 (双层异步科技流)
+    'particle-bar': [
+      'relative overflow-hidden',
+      // 底层：快速微粒子
+      'before:content-empty before:absolute before:inset-0 before:opacity-30 before:animate-flow-fast',
+      'before:bg-[length:100px_100%] before:bg-[radial-gradient(circle,rgba(255,255,255,0.8)_0.8px,transparent_0.8px)]',
+      // 顶层：慢速带光晕点阵
+      'after:content-empty after:absolute after:inset-0 after:opacity-50 after:animate-flow-slow',
+      'after:bg-[length:60px_100%] after:bg-[radial-gradient(circle,rgba(255,255,255,0.4)_1.5px,transparent_1.5px),radial-gradient(circle,rgba(255,255,255,0.1)_3px,transparent_3px)]',
+    ].join(' '),
+
     // 边角装饰 (利用伪元素模拟工业切角)
     'tech-corner': 'before:content-[""] before:absolute before:top-0 before:left-0 before:w-2 before:h-2 before:border-t-2 before:border-l-2 before:border-industrial-blue/40 after:content-[""] after:absolute after:bottom-0 after:right-0 after:w-2 after:h-2 after:border-b-2 after:border-r-2 after:border-industrial-blue/40',
   },
@@ -77,18 +110,4 @@ export default defineConfig({
       'background-size': '100% 4px',
     })],
   ],
-  animations: {
-    keyframes: {
-      scan: '{ from { transform: translateY(-100%); } to { transform: translateY(100%); } }',
-    },
-    durations: {
-      scan: '3s',
-    },
-    counts: {
-      scan: 'infinite',
-    },
-    timingFns: {
-      scan: 'linear',
-    },
-  },
 })
