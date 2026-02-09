@@ -9,6 +9,8 @@
 
 import type { PiniaPluginContext } from 'pinia'
 
+import { deepClone } from 'wot-design-uni/components/common/util'
+
 /** 持久化配置 */
 interface PersistOptions {
   /** 排除的 store ID 列表 */
@@ -21,19 +23,6 @@ interface PersistOptions {
 const DEFAULT_OPTIONS: PersistOptions = {
   excludedIds: [],
   keyPrefix: 'pinia:',
-}
-
-/**
- * 深度克隆对象
- */
-function deepClone<T>(obj: T): T {
-  try {
-    return JSON.parse(JSON.stringify(obj)) as T
-  }
-  catch (error) {
-    console.error('[Persist] 深度克隆失败:', error)
-    return obj
-  }
 }
 
 /**

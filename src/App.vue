@@ -1,5 +1,7 @@
 <script setup lang="ts">
-onLaunch(() => {})
+onLaunch(() => {
+  uni.hideTabBar()
+})
 </script>
 
 <style lang="scss">
@@ -12,7 +14,7 @@ onLaunch(() => {})
 }
 
 .wot-theme-dark.page-wraper {
-  background: #0b0f1a;
+  background: #000000;
   color: #e2e8f0;
 }
 

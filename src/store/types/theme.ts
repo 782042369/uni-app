@@ -12,21 +12,6 @@ export interface ThemeColorOption {
   primary: string
 }
 
-/** 简化版系统主题状态 */
-export interface SystemThemeState {
-  theme: ThemeMode
-  themeVars: ThemeVars
-}
-
-/** 完整版主题状态 */
-export interface ThemeState {
-  theme: ThemeMode
-  followSystem: boolean
-  hasUserSet: boolean
-  currentThemeColor: ThemeColorOption
-  themeVars: ThemeVars
-}
-
 /** 主题变量 */
 export interface ThemeVars {
   darkBackground: string

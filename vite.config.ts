@@ -73,4 +73,21 @@ export default defineConfig({
     // see unocss.config.ts for config
     UnoCSS(),
   ],
+  build: {
+    // 调整 chunk 大小警告阈值
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        // 自定义拆包策略
+        manualChunks(name) {
+          const nodeName = name.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\\/]*)\//)?.groups?.moduleName
+          return nodeName ? `js/${nodeName}` : undefined
+        },
+        // 用于控制打包后的文件结构
+        chunkFileNames: 'assets/js/[name]-[hash].js', // 引入文件名的名称
+        entryFileNames: 'assets/js/[name]-[hash].js', // 包的入口文件名称
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
+      },
+    },
+  },
 })

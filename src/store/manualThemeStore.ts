@@ -15,20 +15,7 @@ import { themeColorOptions } from '@/composables/types/theme'
 
 import type { ThemeColorOption, ThemeMode, ThemeVars } from './types/theme'
 
-/** 默认主题变量 */
-const DEFAULT_THEME_VARS: ThemeVars = {
-  darkBackground: '#0f0f0f',
-  darkBackground2: '#1a1a1a',
-  darkBackground3: '#242424',
-  darkBackground4: '#2f2f2f',
-  darkBackground5: '#3d3d3d',
-  darkBackground6: '#4a4a4a',
-  darkBackground7: '#606060',
-  darkColor: '#ffffff',
-  darkColor2: '#e0e0e0',
-  darkColor3: '#a0a0a0',
-  colorTheme: themeColorOptions[0].primary,
-}
+import { DEFAULT_THEME_VARS, getSystemTheme, setNavigationBarColor } from './utils/theme'
 
 export const useManualThemeStore = defineStore('manualTheme', () => {
   // State
@@ -41,46 +28,15 @@ export const useManualThemeStore = defineStore('manualTheme', () => {
   // Getters
   const isDark = computed(() => theme.value === 'dark')
 
-  // Actions (先定义所有函数，避免使用前未定义的问题)
-  const getSystemTheme = (): ThemeMode => {
-    try {
-      // #ifdef MP-WEIXIN
-      const appBaseInfo = uni.getAppBaseInfo()
-      if (appBaseInfo?.theme) {
-        return appBaseInfo.theme as ThemeMode
-      }
-      // #endif
-
-      // #ifndef MP-WEIXIN
-      const systemInfo = uni.getSystemInfoSync()
-      if (systemInfo?.theme) {
-        return systemInfo.theme as ThemeMode
-      }
-      // #endif
-    }
-    catch (error) {
-      console.warn('[ManualThemeStore] 获取系统主题失败:', error)
-    }
-
-    return 'light'
-  }
-
-  const setNavigationBarColor = () => {
-    try {
-      uni.setNavigationBarColor({
-        frontColor: theme.value === 'light' ? '#000000' : '#ffffff',
-        backgroundColor: theme.value === 'light' ? '#ffffff' : '#000000',
-      })
-    }
-    catch (error) {
-      console.warn('[ManualThemeStore] 设置导航栏颜色失败:', error)
-    }
+  // Actions
+  const updateNavigationBarColor = () => {
+    setNavigationBarColor(theme.value)
   }
 
   const initTheme = () => {
     if (hasUserSet.value && !followSystem.value) {
       console.log('[ManualThemeStore] 使用用户设置的主题:', theme.value)
-      setNavigationBarColor()
+      updateNavigationBarColor()
       return
     }
 
@@ -98,7 +54,7 @@ export const useManualThemeStore = defineStore('manualTheme', () => {
       }
     }
 
-    setNavigationBarColor()
+    updateNavigationBarColor()
   }
 
   const toggleTheme = (mode?: ThemeMode, isFollow = false) => {
@@ -109,7 +65,7 @@ export const useManualThemeStore = defineStore('manualTheme', () => {
       followSystem.value = false
     }
 
-    setNavigationBarColor()
+    updateNavigationBarColor()
   }
 
   const setFollowSystem = (follow: boolean) => {
@@ -141,7 +97,7 @@ export const useManualThemeStore = defineStore('manualTheme', () => {
     isDark,
     toggleTheme,
     setFollowSystem,
-    setNavigationBarColor,
+    setNavigationBarColor: updateNavigationBarColor,
     setCurrentThemeColor,
     getSystemTheme,
     initTheme,
