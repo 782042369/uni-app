@@ -5,6 +5,11 @@
 
 type _LocationUrl =
   "/pages/index/index" |
+  "/pages/knowledge/detail" |
+  "/pages/knowledge/favorites" |
+  "/pages/knowledge/index" |
+  "/pages/knowledge/manage" |
+  "/pages/knowledge/search" |
   "/pages/production/automation" |
   "/pages/production/index" |
   "/pages/production/monitor" |
