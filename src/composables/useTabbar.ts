@@ -7,10 +7,11 @@ export interface TabbarItem {
 }
 
 const tabbarItems = ref<TabbarItem[]>([
-  { name: 'home', value: null, active: true, title: '首页', icon: 'home' },
-  { name: 'monitor', value: null, active: false, title: '实时监控', icon: 'user' },
-  { name: 'alarm', value: null, active: false, title: '告警中心', icon: 'user' },
-  { name: 'about', value: null, active: false, title: '我的', icon: 'user' },
+  { name: 'index', value: null, active: true, title: '首页', icon: 'home' },
+  { name: 'safety', value: null, active: false, title: '安全环保中心', icon: 'user' },
+  { name: 'production', value: null, active: false, title: '生产运营', icon: 'user' },
+  { name: 'knowledge', value: null, active: false, title: '知识库', icon: 'user' },
+  { name: 'profile', value: null, active: false, title: '我的', icon: 'user' },
 ])
 
 export function useTabbar() {
