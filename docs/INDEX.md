@@ -51,16 +51,19 @@ docs/
 │   ├── ENV.md            # 环境配置（基于 .env.example）
 │   └── FAQ.md            # 常见问题解答（集中管理）
 │
-└── 运维文档
-    ├── BUILD.md          # 构建指南
-    └── RUNBOOK.md        # 运维手册（部署、监控、排错）
+├── 运维文档
+│   ├── BUILD.md          # 构建指南
+│   └── RUNBOOK.md        # 运维手册（部署、监控、排错）
+│
 └── 前端文档
-    ├── UI_DESIGN_GUIDE.md      # UI 设计规范（色彩、字体、图标）
+    ├── UI_DESIGN.md            # UI 设计规范（色彩、字体、图标）
+    ├── UI_DESIGN_GUIDE.md      # UI 设计指南
     ├── MENU_STRUCTURE.md       # 菜单与路由结构
     ├── PAGES_SPEC.md           # 页面设计规范
     ├── COMPONENTS_SPEC.md      # 组件设计规范
     ├── DATA_MODELS.md          # 数据模型定义
-    └── INTERACTION_PATTERNS.md # 交互设计规范```
+    └── INTERACTION_PATTERNS.md # 交互设计规范
+```
 
 ---
 
@@ -207,4 +210,43 @@ docs/
 
 ---
 
-最后更新：2026-02-04
+## 📊 项目模块导航
+
+```mermaid
+graph TD
+    A["马郎综管平台 uni-app"] --> B["页面模块"]
+    A --> C["核心功能"]
+    A --> D["文档中心"]
+
+    B --> B1["首页 index<br/>数据仪表盘"]
+    B --> B2["安全生产 safety<br/>8个页面"]
+    B --> B3["生产管理 production<br/>6个页面"]
+    B --> B4["知识库 knowledge<br/>5个页面"]
+    B --> B5["个人中心 profile<br/>7个页面"]
+
+    C --> C1["状态管理 Pinia<br/>10个 store"]
+    C --> C2["API 层 Alova<br/>14个模块"]
+    C --> C3["全局组件<br/>7个组件"]
+    C --> C4["路由系统<br/>@wot-ui/router"]
+
+    D --> D1["项目文档<br/>PROJECT, GETTING_STARTED"]
+    D --> D2["开发文档<br/>CONTRIB, SCRIPTS, FAQ"]
+    D --> D3["运维文档<br/>BUILD, RUNBOOK"]
+    D --> D4["前端文档<br/>UI, 组件, 交互"]
+
+    click D1 "#项目文档" "查看项目文档"
+    click D2 "#开发文档" "查看开发文档"
+    click D3 "#构建部署" "查看运维文档"
+    click D4 "#前端开发" "查看前端文档"
+```
+
+**模块统计：**
+- 📱 页面模块：5 个（共 33 个页面文件）
+- 🧩 全局组件：7 个（自动导入）
+- 🗃️ 状态管理：10 个 Pinia Store
+- 🌐 API 接口：14 个 Alova 模块
+- 🤖 AI 技能：7 个代码生成技能
+
+---
+
+最后更新：2026-02-27

@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-02-06T10:40:00+08:00",
+  "timestamp": "2026-02-27T23:28:25+08:00",
   "project": {
     "name": "uni-app",
     "type": "wot-starter",
     "platforms": ["android", "harmonyos", "h5"],
     "packageManager": "pnpm@10.0.0",
-    "description": "基于 vitesse-uni-app 深度整合 Wot UI 组件库的现代化 uni-app 项目"
+    "description": "基于 Wot Starter 模板的 uni-app 跨平台应用项目"
   },
   "structure": {
     "root": {
@@ -20,6 +20,8 @@
         "uno.config.ts",
         "tsconfig.json",
         "eslint.config.js",
+        "commitlint.config.js",
+        "unh.config.ts",
         "package.json",
         ".env.development",
         ".env.production",
@@ -28,31 +30,89 @@
     },
     "modules": [
       {
-        "name": "pages",
-        "path": "src/pages",
+        "name": "pages-index",
+        "path": "src/pages/index",
         "type": "vue-pages",
-        "files": ["index/index.vue", "about/index.vue"],
+        "files": ["index.vue"],
         "hasTests": false,
-        "hasDoc": false,
-        "description": "页面路由，基于文件自动生成"
+        "hasDoc": true,
+        "docPath": "docs/INDEX.md",
+        "description": "首页 - 核心数据仪表盘"
+      },
+      {
+        "name": "pages-safety",
+        "path": "src/pages/safety",
+        "type": "vue-pages",
+        "files": ["index.vue", "hazard.vue", "risk.vue", "environmental.vue", "monitor.vue", "contacts.vue", "warning.vue", "warning-detail.vue"],
+        "hasTests": false,
+        "hasDoc": true,
+        "docPath": "docs/INDEX.md",
+        "description": "安全生产管理模块"
+      },
+      {
+        "name": "pages-production",
+        "path": "src/pages/production",
+        "type": "vue-pages",
+        "files": ["index.vue", "automation.vue", "monitor.vue", "report.vue", "sales.vue", "video.vue"],
+        "hasTests": false,
+        "hasDoc": true,
+        "docPath": "docs/INDEX.md",
+        "description": "生产管理模块"
+      },
+      {
+        "name": "pages-knowledge",
+        "path": "src/pages/knowledge",
+        "type": "vue-pages",
+        "files": ["index.vue", "detail.vue", "favorites.vue", "manage.vue", "search.vue"],
+        "hasTests": false,
+        "hasDoc": true,
+        "docPath": "docs/INDEX.md",
+        "description": "知识库管理模块"
+      },
+      {
+        "name": "pages-profile",
+        "path": "src/pages/profile",
+        "type": "vue-pages",
+        "files": ["index.vue", "about.vue", "favorites.vue", "settings.vue", "tasks.vue", "feedback.vue", "messages.vue"],
+        "hasTests": false,
+        "hasDoc": true,
+        "docPath": "docs/INDEX.md",
+        "description": "个人中心模块"
       },
       {
         "name": "components",
         "path": "src/components",
         "type": "vue-components",
-        "files": ["DemoBlock.vue", "GlobalLoading.vue", "GlobalMessage.vue", "GlobalToast.vue", "PrivacyPopup.vue"],
+        "files": [
+          "GlobalLoading.vue",
+          "GlobalMessage.vue",
+          "GlobalToast.vue",
+          "SecondaryTabBar.vue",
+          "index/CoreDataDashboard.vue",
+          "index/QuickActionGrid.vue",
+          "index/TodoReminder.vue"
+        ],
         "hasTests": false,
-        "hasDoc": false,
-        "description": "全局组件，自动导入，含 Wot UI 组件库"
+        "hasDoc": true,
+        "docPath": ".claude/skills/global-feedback/SKILL.md",
+        "description": "全局组件（自动导入）+ 业务组件"
       },
       {
         "name": "composables",
         "path": "src/composables",
         "type": "composables",
-        "files": ["useTheme.ts", "useManualTheme.ts", "useTabbar.ts", "useGlobalLoading.ts", "useGlobalMessage.ts", "useGlobalToast.ts"],
+        "files": [
+          "useTheme.ts",
+          "useManualTheme.ts",
+          "useTabbar.ts",
+          "useGlobalLoading.ts",
+          "useGlobalMessage.ts",
+          "useGlobalToast.ts"
+        ],
         "hasTests": false,
-        "hasDoc": false,
-        "description": "组合式函数，自动导入，支持主题和全局反馈"
+        "hasDoc": true,
+        "docPath": ".claude/skills/vue-composable-creator/SKILL.md",
+        "description": "组合式函数（自动导入）"
       },
       {
         "name": "layouts",
@@ -60,27 +120,54 @@
         "type": "layouts",
         "files": ["default.vue", "tabbar.vue"],
         "hasTests": false,
-        "hasDoc": false,
-        "description": "布局模板系统，支持默认和 TabBar 布局"
+        "hasDoc": true,
+        "docPath": "docs/PROJECT.md#项目结构",
+        "description": "布局模板系统"
       },
       {
         "name": "store",
         "path": "src/store",
         "type": "pinia-store",
-        "files": ["themeStore.ts", "manualThemeStore.ts", "persist.ts"],
+        "files": [
+          "themeStore.ts",
+          "manualThemeStore.ts",
+          "userStore.ts",
+          "messagesStore.ts",
+          "settingsStore.ts",
+          "knowledgeStore.ts",
+          "persist.ts",
+          "types/theme.ts",
+          "types/settings.ts",
+          "utils/theme.ts"
+        ],
         "hasTests": false,
-        "hasDoc": false,
-        "description": "Pinia 状态管理，支持持久化"
+        "hasDoc": true,
+        "docPath": ".claude/skills/pinia-store-generator/SKILL.md",
+        "description": "Pinia 状态管理（持久化支持）"
       },
       {
         "name": "api",
         "path": "src/api",
         "type": "alova-api",
-        "files": ["apiDefinitions.ts", "createApis.ts", "core/instance.ts", "core/handlers.ts", "core/middleware.ts", "mock/**/*.ts"],
+        "files": [
+          "apiDefinitions.ts",
+          "createApis.ts",
+          "globals.d.ts",
+          "core/instance.ts",
+          "core/handlers.ts",
+          "core/middleware.ts",
+          "mock/mockAdapter.ts",
+          "mock/modules/common.ts",
+          "mock/modules/pet.ts",
+          "mock/modules/store.ts",
+          "mock/modules/user.ts",
+          "mock/modules/knowledge.ts",
+          "mock/utils/generators.ts"
+        ],
         "hasTests": false,
         "hasDoc": true,
-        "docPath": "src/api/mock/README.md",
-        "description": "Alova.js API 层，支持自动生成和 Mock"
+        "docPath": ".claude/skills/alova-api-module/SKILL.md",
+        "description": "Alova.js API 层（自动生成 + Mock）"
       },
       {
         "name": "router",
@@ -88,7 +175,8 @@
         "type": "wot-router",
         "files": ["index.ts"],
         "hasTests": false,
-        "hasDoc": false,
+        "hasDoc": true,
+        "docPath": ".claude/skills/wot-router-usage/SKILL.md",
         "description": "@wot-ui/router 路由系统"
       },
       {
@@ -99,6 +187,35 @@
         "hasTests": false,
         "hasDoc": false,
         "description": "工具函数库"
+      },
+      {
+        "name": "types",
+        "path": "src/types",
+        "type": "typescript-types",
+        "files": [
+          "auto-imports.d.ts",
+          "components.d.ts",
+          "uni-pages.d.ts",
+          "alarm.ts",
+          "common.ts",
+          "pages.ts",
+          "home/index.ts",
+          "knowledge/index.ts",
+          "profile/index.ts",
+          "safety/index.ts"
+        ],
+        "hasTests": false,
+        "hasDoc": false,
+        "description": "TypeScript 类型定义"
+      },
+      {
+        "name": "customize-tab-bar",
+        "path": "src/customize-tab-bar",
+        "type": "uni-tabbar",
+        "files": ["index.js"],
+        "hasTests": false,
+        "hasDoc": false,
+        "description": "自定义 TabBar 组件"
       },
       {
         "name": "skills",
@@ -113,29 +230,46 @@
           "wot-router-usage",
           "wot-ui"
         ],
-        "description": "AI Agent 技能模块，用于代码生成和脚手架"
+        "description": "AI Agent 技能模块"
       },
       {
         "name": "docs",
         "path": "docs",
         "type": "project-docs",
-        "files": ["INDEX.md", "PROJECT.md", "GETTING_STARTED.md", "CONTRIB.md", "SCRIPTS.md", "ENV.md", "BUILD.md", "RUNBOOK.md", "FAQ.md"],
-        "description": "集中化项目文档，使用 @ 引用避免重复"
+        "files": [
+          "INDEX.md",
+          "PROJECT.md",
+          "GETTING_STARTED.md",
+          "CONTRIB.md",
+          "SCRIPTS.md",
+          "ENV.md",
+          "BUILD.md",
+          "RUNBOOK.md",
+          "FAQ.md",
+          "UI_DESIGN.md",
+          "frontend/UI_DESIGN_GUIDE.md",
+          "frontend/MENU_STRUCTURE.md",
+          "frontend/PAGES_SPEC.md",
+          "frontend/COMPONENTS_SPEC.md",
+          "frontend/DATA_MODELS.md",
+          "frontend/INTERACTION_PATTERNS.md"
+        ],
+        "description": "集中化项目文档"
       }
     ]
   },
   "coverage": {
-    "totalFiles": 64,
-    "scannedFiles": 64,
+    "totalFiles": 103,
+    "scannedFiles": 103,
     "coveragePercent": 100,
     "byCategory": {
-      "vue": 14,
-      "typescript": 30,
-      "javascript": 3,
-      "json": 16,
-      "md": 90,
+      "vue": 35,
+      "typescript": 35,
+      "javascript": 6,
+      "json": 8,
+      "md": 16,
       "env": 3,
-      "config": 8
+      "config": 9
     },
     "ignoredDirs": [
       "node_modules",
@@ -160,8 +294,7 @@
       "*.njsproj",
       "*.sln",
       "*.sw?",
-      "pages.json",
-      "manifest.json"
+      ".omc/**"
     ]
   },
   "gaps": {
@@ -181,14 +314,14 @@
   "documentation": {
     "rootDoc": {
       "path": "CLAUDE.md",
-      "lines": 116,
+      "lines": 230,
       "type": "root-context"
     },
     "moduleDocs": [
       {
         "module": "docs",
         "path": "docs/INDEX.md",
-        "lines": 150,
+        "lines": 148,
         "description": "文档中心导航"
       }
     ],
@@ -200,53 +333,78 @@
       },
       {
         "path": "docs/INDEX.md",
-        "lines": 150,
+        "lines": 148,
         "content": "文档中心导航"
       },
       {
         "path": "docs/PROJECT.md",
-        "lines": 180,
+        "lines": 240,
         "content": "项目概述、技术栈、自动化特性"
       },
       {
         "path": "docs/GETTING_STARTED.md",
-        "lines": 160,
+        "lines": 175,
         "content": "快速开始指南"
       },
       {
         "path": "docs/CONTRIB.md",
-        "lines": 200,
+        "lines": 215,
         "content": "开发工作流、代码规范"
       },
       {
         "path": "docs/SCRIPTS.md",
-        "lines": 170,
+        "lines": 205,
         "content": "脚本命令参考"
       },
       {
-        "path": "docs/ENV.md",
-        "lines": 80,
-        "content": "环境变量配置"
-      },
-      {
         "path": "docs/BUILD.md",
-        "lines": 200,
+        "lines": 230,
         "content": "构建指南"
       },
       {
         "path": "docs/RUNBOOK.md",
-        "lines": 250,
+        "lines": 280,
         "content": "运维手册"
       },
       {
         "path": "docs/FAQ.md",
-        "lines": 280,
+        "lines": 290,
         "content": "常见问题解答"
       },
       {
-        "path": "src/api/mock/README.md",
-        "lines": 50,
-        "content": "Mock 数据说明"
+        "path": ".claude/skills/alova-api-module/SKILL.md",
+        "lines": 85,
+        "content": "Alova API 模块生成器"
+      },
+      {
+        "path": ".claude/skills/global-feedback/SKILL.md",
+        "lines": 60,
+        "content": "全局反馈组件使用指南"
+      },
+      {
+        "path": ".claude/skills/pinia-store-generator/SKILL.md",
+        "lines": 70,
+        "content": "Pinia Store 生成器"
+      },
+      {
+        "path": ".claude/skills/uni-page-generator/SKILL.md",
+        "lines": 65,
+        "content": "uni-app 页面生成器"
+      },
+      {
+        "path": ".claude/skills/vue-composable-creator/SKILL.md",
+        "lines": 55,
+        "content": "Vue Composable 创建器"
+      },
+      {
+        "path": ".claude/skills/wot-router-usage/SKILL.md",
+        "lines": 80,
+        "content": "Wot Router 使用指南"
+      },
+      {
+        "path": ".claude/skills/wot-ui/SKILL.md",
+        "lines": 95,
+        "content": "Wot UI 组件库使用指南"
       }
     ],
     "skills": [
@@ -280,7 +438,7 @@
       }
     ],
     "deduplication": {
-      "avoidedDuplicateLines": 1200,
+      "avoidedDuplicateLines": 1800,
       "method": "使用 @ 引用链接替代重复内容，集中化文档管理"
     }
   },
@@ -290,5 +448,34 @@
     "创建 E2E 测试覆盖关键用户流程",
     "完善 API 层的类型定义和文档",
     "添加性能监控和错误追踪"
-  ]
+  ],
+  "techStack": {
+    "core": {
+      "vue": "3.4.38",
+      "typescript": "5.5.4",
+      "vite": "5.2.8",
+      "unoCSS": "66.0.0"
+    },
+    "ui": {
+      "wotDesignUni": "1.14.0",
+      "uniEcharts": "2.4.2"
+    },
+    "state": {
+      "pinia": "2.3.1"
+    },
+    "api": {
+      "alova": "3.5.0",
+      "@alova/mock": "2.0.18",
+      "@alova/adapter-uniapp": "2.0.15"
+    },
+    "router": {
+      "@wot-ui/router": "1.1.2"
+    },
+    "tools": {
+      "@vueuse/core": "14.2.0",
+      "dayjs": "1.11.19",
+      "es-toolkit": "1.44.0",
+      "echarts": "6.0.0"
+    }
+  }
 }
