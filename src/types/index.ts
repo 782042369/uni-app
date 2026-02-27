@@ -1,9 +1,28 @@
 /**
  * 公共类型定义统一导出
+ * 遵循 TypeScript 严格类型规范
  */
 
-// 导出所有类型
+// 导出告警类型
 export * from './alarm'
+
+// 导出通用类型
+export * from './common'
+
+// 导出首页类型
+export * from './home'
+
+// 导出知识库类型
+export * from './knowledge'
+
+// 导出页面相关类型
+export * from './pages'
+
+// 导出个人中心类型
+export * from './profile'
+
+// 导出安全环保中心类型
+export * from './safety'
 
 // ========== 页面组件类型 ==========
 
