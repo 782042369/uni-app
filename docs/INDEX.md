@@ -1,6 +1,6 @@
 # 文档中心
 
-集中管理 uni-app 项目的所有文档，避免重复，通过引用链接提供详细信息。
+集中管理项目的所有文档，避免重复，通过引用链接提供详细信息。
 
 ## 快速导航
 
@@ -18,6 +18,14 @@
 ### 🏗️ 构建部署
 1. [构建指南](./BUILD.md) - 各平台构建流程
 2. [运维手册](./RUNBOOK.md) - 部署、监控、故障排查
+### 🎨 前端开发
+1. [UI 设计规范](./frontend/UI_DESIGN_GUIDE.md) - 色彩、字体、图标、布局规范
+2. [菜单与路由结构](./frontend/MENU_STRUCTURE.md) - 一级菜单、二级菜单配置
+3. [页面设计规范](./frontend/PAGES_SPEC.md) - 各页面详细设计说明
+4. [组件设计规范](./frontend/COMPONENTS_SPEC.md) - 业务组件、布局组件定义
+5. [数据模型](./frontend/DATA_MODELS.md) - TypeScript 类型定义
+6. [交互设计规范](./frontend/INTERACTION_PATTERNS.md) - 手势交互、反馈机制
+
 
 ### 📚 参考资料
 - [uni-app 官方文档](https://uniapp.dcloud.net.cn/)
@@ -46,7 +54,13 @@ docs/
 └── 运维文档
     ├── BUILD.md          # 构建指南
     └── RUNBOOK.md        # 运维手册（部署、监控、排错）
-```
+└── 前端文档
+    ├── UI_DESIGN_GUIDE.md      # UI 设计规范（色彩、字体、图标）
+    ├── MENU_STRUCTURE.md       # 菜单与路由结构
+    ├── PAGES_SPEC.md           # 页面设计规范
+    ├── COMPONENTS_SPEC.md      # 组件设计规范
+    ├── DATA_MODELS.md          # 数据模型定义
+    └── INTERACTION_PATTERNS.md # 交互设计规范```
 
 ---
 
