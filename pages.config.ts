@@ -46,11 +46,13 @@ export default defineUniPages({
     list: [{
       pagePath: 'pages/index/index',
     }, {
-      pagePath: 'pages/monitor/index',
+      pagePath: 'pages/safety/index',
     }, {
-      pagePath: 'pages/alarm/index',
+      pagePath: 'pages/production/index',
     }, {
-      pagePath: 'pages/about/index',
+      pagePath: 'pages/knowledge/index',
+    }, {
+      pagePath: 'pages/profile/index',
     }],
   },
 })

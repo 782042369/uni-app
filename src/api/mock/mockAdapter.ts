@@ -12,6 +12,7 @@ import { createAlovaMockAdapter } from '@alova/mock'
 
 // 导入所有mock模块
 import commonMocks from './modules/common'
+import knowledgeMocks from './modules/knowledge'
 import petMocks from './modules/pet'
 import storeMocks from './modules/store'
 import userMocks from './modules/user'
@@ -19,6 +20,7 @@ import userMocks from './modules/user'
 // 合并所有mock定义
 const allMocks = [
   commonMocks,
+  knowledgeMocks,
   petMocks,
   storeMocks,
   userMocks,

@@ -64,9 +64,21 @@ export default defineConfig({
       }, {
         from: 'alova/client',
         imports: ['usePagination', 'useRequest'],
+      }, {
+        from: '@/store',
+        imports: [
+          'useKnowledgeStore',
+          'useManualThemeStore',
+          'useMessagesStore',
+          'useSettingsStore',
+          'useThemeStore',
+          'useUserStore',
+          'createPersistPlugin',
+          'persistPlugin',
+        ],
       }],
       dts: 'src/types/auto-imports.d.ts',
-      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],
+      dirs: ['src/composables', 'src/utils', 'src/api'],
       vueTemplate: true,
     }),
     // https://github.com/antfu/unocss

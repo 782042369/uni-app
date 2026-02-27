@@ -5,9 +5,27 @@
 
 type _LocationUrl =
   "/pages/index/index" |
-  "/pages/about/index" |
-  "/pages/alarm/index" |
-  "/pages/monitor/index";
+  "/pages/production/automation" |
+  "/pages/production/index" |
+  "/pages/production/monitor" |
+  "/pages/production/report" |
+  "/pages/production/sales" |
+  "/pages/production/video" |
+  "/pages/profile/about" |
+  "/pages/profile/favorites" |
+  "/pages/profile/feedback" |
+  "/pages/profile/index" |
+  "/pages/profile/messages" |
+  "/pages/profile/settings" |
+  "/pages/profile/tasks" |
+  "/pages/safety/contacts" |
+  "/pages/safety/environmental" |
+  "/pages/safety/hazard" |
+  "/pages/safety/index" |
+  "/pages/safety/monitor" |
+  "/pages/safety/risk" |
+  "/pages/safety/warning-detail" |
+  "/pages/safety/warning";
 
 interface NavigateToOptions {
   url: _LocationUrl;
@@ -15,7 +33,7 @@ interface NavigateToOptions {
 interface RedirectToOptions extends NavigateToOptions {}
 
 interface SwitchTabOptions {
-  url: "/pages/index/index" | "/pages/monitor/index" | "/pages/alarm/index" | "/pages/about/index"
+  url: "/pages/index/index" | "/pages/safety/index" | "/pages/production/index" | "/pages/knowledge/index" | "/pages/profile/index"
 }
 
 type ReLaunchOptions = NavigateToOptions | SwitchTabOptions;

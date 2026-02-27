@@ -27,10 +27,10 @@
     {
       "path": "pages/index/index",
       "type": "home",
-      "name": "home",
+      "name": "index",
       "layout": "tabbar",
       "style": {
-        "navigationBarTitleText": "系统概览"
+        "navigationStyle": "custom"
       }
     },
     // #ifdef APP || APP-HARMONY
@@ -45,31 +45,255 @@
     },
     // #endif
     {
-      "path": "pages/about/index",
+      "path": "pages/knowledge/detail",
       "type": "page",
-      "name": "about",
-      "layout": "tabbar",
+      "name": "knowledge-detail",
+      "layout": "default",
       "style": {
-        "navigationBarTitleText": "个人中心"
+        "navigationBarTitleText": "资料详情",
+        "navigationStyle": "custom"
       }
     },
     {
-      "path": "pages/alarm/index",
+      "path": "pages/knowledge/favorites",
       "type": "page",
-      "name": "alarm",
-      "layout": "tabbar",
+      "name": "knowledge-favorites",
+      "layout": "default",
       "style": {
-        "navigationBarTitleText": "告警调度中心",
-        "disableScroll": true
+        "navigationBarTitleText": "我的收藏",
+        "navigationStyle": "default"
       }
     },
     {
-      "path": "pages/monitor/index",
+      "path": "pages/knowledge/index",
       "type": "page",
-      "name": "monitor",
+      "name": "knowledge",
       "layout": "tabbar",
       "style": {
-        "navigationBarTitleText": "现场实时监控"
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/knowledge/manage",
+      "type": "page",
+      "name": "knowledge-manage",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "资料管理",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/knowledge/search",
+      "type": "page",
+      "name": "knowledge-search",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "搜索资料"
+      }
+    },
+    {
+      "path": "pages/production/automation",
+      "type": "page",
+      "name": "production-automation",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "综合自动化"
+      }
+    },
+    {
+      "path": "pages/production/index",
+      "type": "page",
+      "name": "production",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "生产运营"
+      }
+    },
+    {
+      "path": "pages/production/monitor",
+      "type": "page",
+      "name": "production-monitor",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "生产监控"
+      }
+    },
+    {
+      "path": "pages/production/report",
+      "type": "page",
+      "name": "production-report",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "生产报表"
+      }
+    },
+    {
+      "path": "pages/production/sales",
+      "type": "page",
+      "name": "production-sales",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "产运销"
+      }
+    },
+    {
+      "path": "pages/production/video",
+      "type": "page",
+      "name": "production-video",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "生产视频"
+      }
+    },
+    {
+      "path": "pages/profile/about",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "关于我们"
+      }
+    },
+    {
+      "path": "pages/profile/favorites",
+      "type": "page",
+      "name": "profile-favorites",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "我的收藏"
+      }
+    },
+    {
+      "path": "pages/profile/feedback",
+      "type": "page",
+      "name": "feedback",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "意见反馈"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "type": "page",
+      "name": "profile",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/profile/messages",
+      "type": "page",
+      "name": "profile-messages",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "消息通知",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/profile/settings",
+      "type": "page",
+      "name": "settings",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "账号设置"
+      }
+    },
+    {
+      "path": "pages/profile/tasks",
+      "type": "page",
+      "name": "profile-tasks",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "我的待办"
+      }
+    },
+    {
+      "path": "pages/safety/contacts",
+      "type": "page",
+      "name": "safety-contacts",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "应急通讯录",
+        "navigationStyle": "default"
+      }
+    },
+    {
+      "path": "pages/safety/environmental",
+      "type": "page",
+      "name": "safety-environmental",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "环保监测"
+      }
+    },
+    {
+      "path": "pages/safety/hazard",
+      "type": "page",
+      "name": "safety-hazard",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "隐患排查",
+        "navigationBarBackgroundColor": "#1E40AF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/safety/index",
+      "type": "page",
+      "name": "safety",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "安全环保中心",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/safety/monitor",
+      "type": "page",
+      "name": "safety-monitor",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "安全监测",
+        "navigationBarBackgroundColor": "#1E40AF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/safety/risk",
+      "type": "page",
+      "name": "safety-risk",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "风险管控",
+        "navigationBarBackgroundColor": "#1E40AF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/safety/warning-detail",
+      "type": "page",
+      "name": "safety-warning-detail",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "预警详情",
+        "navigationBarBackgroundColor": "#1E40AF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/safety/warning",
+      "type": "page",
+      "name": "safety-warning",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "预警处置",
+        "navigationBarBackgroundColor": "#1E40AF",
+        "navigationBarTextStyle": "white"
       }
     }
   ],
@@ -89,16 +313,22 @@
         "pagePath": "pages/index/index"
       },
       // #endif
-      // #ifdef APP || APP-HARMONY || H5
+      // #ifdef APP || APP-HARMONY
       {
         "pagePath": "pages/about/index"
       },
       // #endif
       {
-        "pagePath": "pages/monitor/index"
+        "pagePath": "pages/safety/index"
       },
       {
-        "pagePath": "pages/alarm/index"
+        "pagePath": "pages/production/index"
+      },
+      {
+        "pagePath": "pages/knowledge/index"
+      },
+      {
+        "pagePath": "pages/profile/index"
       }
     ]
   }

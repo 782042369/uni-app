@@ -45,6 +45,7 @@
     "pinia": "^2.3.1",
     "uni-echarts": "^2.4.2",
     "vue": "~3.4.38",
+    "vue-dompurify-html": "^5.3.0",
     "wot-design-uni": "^1.14.0"
   },
   "devDependencies": {

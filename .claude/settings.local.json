@@ -1,3 +1,21 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
+      "mcp__plugin_oh-my-claudecode_t__state_read",
+      "mcp__plugin_oh-my-claudecode_t__state_clear",
+      "Bash(pnpm type-check:*)",
+      "Bash(npx vue-tsc:*)",
+      "Bash(npx tsc:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(cat:*)",
+      "mcp__plugin_oh-my-claudecode_t__state_write",
+      "mcp__plugin_oh-my-claudecode_team__omc_run_team_start",
+      "mcp__plugin_oh-my-claudecode_team__omc_run_team_wait",
+      "mcp__plugin_oh-my-claudecode_t__state_list_active",
+      "Skill(agent-browser)"
+    ]
+  },
   "outputStyle": "engineer-professional"
 }
