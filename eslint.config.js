@@ -19,6 +19,7 @@ export default uni({
     ],
     'no-console': 'off',
     'eslint-comments/no-unlimited-disable': 'off',
+    'antfu/top-level-function': 'off',
   },
   ignores: [
     '**/node_modules/**',
